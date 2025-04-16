@@ -1,0 +1,348 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    /* Light mode - pastel colors with green accents */
+    --background: 220 30% 95%;
+    --foreground: 220 20% 20%;
+
+    --card: 0 0% 100%;
+    --card-foreground: 220 20% 20%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 220 20% 20%;
+
+    --primary: 142 60% 45%;
+    --primary-foreground: 210 40% 98%;
+
+    --secondary: 220 15% 90%;
+    --secondary-foreground: 220 20% 20%;
+
+    --muted: 220 15% 90%;
+    --muted-foreground: 220 10% 40%;
+
+    --accent: 142 30% 85%;
+    --accent-foreground: 220 20% 20%;
+
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 210 40% 98%;
+
+    --border: 220 20% 85%;
+    --input: 220 20% 85%;
+    --ring: 142 76% 36%;
+
+    --radius: 0.75rem;
+
+    --sidebar-background: 0 0% 98%;
+    --sidebar-foreground: 240 5.3% 26.1%;
+    --sidebar-primary: 240 5.9% 10%;
+    --sidebar-primary-foreground: 0 0% 98%;
+    --sidebar-accent: 240 4.8% 95.9%;
+    --sidebar-accent-foreground: 240 5.9% 10%;
+    --sidebar-border: 220 13% 91%;
+    --sidebar-ring: 217.2 91.2% 59.8%;
+  }
+
+  .dark {
+    /* Nord-Inspired Dark Theme */
+    --background: 220 15% 20%; /* Dark Desaturated Blue/Grey */
+    --foreground: 220 10% 90%; /* Light Grey */
+    
+    --card: 220 15% 25%; /* Slightly Lighter Desaturated Blue/Grey */
+    --card-foreground: 220 10% 90%; /* Light Grey */
+    
+    --popover: 220 15% 25%; /* Slightly Lighter Desaturated Blue/Grey */
+    --popover-foreground: 220 10% 90%; /* Light Grey */
+    
+    --primary: 180 30% 60%; /* Soft Teal/Aqua */
+    --primary-foreground: 220 10% 90%; /* Light Grey */
+    
+    --secondary: 220 15% 30%; /* Medium Desaturated Blue/Grey */
+    --secondary-foreground: 220 10% 90%; /* Light Grey */
+    
+    --muted: 220 15% 30%; /* Medium Desaturated Blue/Grey */
+    --muted-foreground: 220 10% 65%; /* Medium Desaturated Blue/Grey Text */
+    
+    --accent: 180 30% 50%; /* Darker Soft Teal/Aqua */
+    --accent-foreground: 220 10% 90%; /* Light Grey */
+    
+    --destructive: 0 60% 60%; /* Softer Red */
+    --destructive-foreground: 0 0% 98%; /* Almost White */
+    
+    --border: 220 10% 35%; /* Darker Blue/Grey Border */
+    --input: 220 10% 35%; /* Darker Blue/Grey Border */
+    --ring: 180 30% 60%; /* Soft Teal/Aqua for focus */
+  }
+
+  * {
+    @apply border-border;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  body {
+    @apply bg-background text-foreground dark:bg-background dark:text-foreground;
+    font-feature-settings: "rlig" 1, "calt" 1;
+  }
+  
+  .page-transition-enter {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  
+  .page-transition-enter-active {
+    opacity: 1;
+    transform: translateY(0);
+    transition: opacity 0.3s ease, transform 0.3s ease;
+  }
+  
+  html {
+    scroll-behavior: smooth;
+  }
+  
+  ::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+  }
+  
+  ::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  
+  ::-webkit-scrollbar-thumb {
+    @apply bg-muted-foreground/20 rounded-full;
+  }
+  
+  ::-webkit-scrollbar-thumb:hover {
+    @apply bg-muted-foreground/30;
+  }
+}
+
+.glassmorphism {
+  @apply bg-white/80 backdrop-blur-md border border-white/20 dark:bg-black/40 dark:border-white/10;
+}
+
+.section-animate-in > * {
+  @apply opacity-0 translate-y-4 transition-all duration-500;
+  animation: slideUpFadeIn 0.5s forwards;
+  animation-delay: calc(var(--index) * 100ms);
+}
+
+@keyframes slideUpFadeIn {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Resume preview styles with color */
+.resume-preview {
+  font-family: Arial, sans-serif;
+  line-height: 1.5;
+  background-color: white;
+  color: #000;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+}
+
+.resume-preview h1 {
+  font-size: 1.8rem;
+  font-weight: bold;
+  margin-bottom: 0.5rem;
+  color: #000;
+}
+
+.resume-preview h2 {
+  font-size: 1.3rem;
+  font-weight: bold;
+  margin-top: 1.5rem;
+  margin-bottom: 0.5rem;
+  padding-bottom: 0.25rem;
+  border-bottom: 1px solid #000;
+  color: #000;
+}
+
+.resume-preview h3 {
+  font-size: 1.1rem;
+  font-weight: bold;
+  margin-bottom: 0.25rem;
+  color: #000;
+}
+
+.resume-preview p {
+  margin-bottom: 0.5rem;
+  color: #000;
+}
+
+.resume-preview ul {
+  margin: 0.5rem 0;
+  padding-left: 1.5rem;
+  list-style-type: disc;
+  color: #000;
+}
+
+.resume-preview li {
+  color: #000;
+}
+
+.resume-preview .contact-info {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-bottom: 1rem;
+  font-size: 0.9rem;
+  color: #000;
+}
+
+.resume-preview .experience-item,
+.resume-preview .education-item,
+.resume-preview .certification-item {
+  margin-bottom: 1rem;
+  color: #000;
+}
+
+.resume-preview .skills-list,
+.resume-preview .languages-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  color: #000;
+}
+
+.resume-preview .skill-item,
+.resume-preview .language-item {
+  padding: 0.25rem 0.5rem;
+  border-radius: 4px;
+  font-size: 0.9rem;
+  background-color: #f0f0f0;
+  color: #000;
+}
+
+.resume-preview .date-range {
+  font-style: italic;
+  font-size: 0.9rem;
+  color: #333;
+}
+
+.resume-preview .company-location,
+.resume-preview .institution-location {
+  font-size: 0.9rem;
+  color: #333;
+}
+
+/* Template specific styles */
+.resume-classic h1 {
+  font-family: 'Times New Roman', Times, serif;
+  letter-spacing: 0.05em;
+  color: #000;
+}
+
+.resume-classic h2 {
+  font-family: 'Times New Roman', Times, serif;
+  letter-spacing: 0.03em;
+  color: #000;
+}
+
+.resume-classic p, 
+.resume-classic li {
+  font-family: 'Times New Roman', Times, serif;
+  line-height: 1.6;
+  color: #000;
+}
+
+.resume-classic .section-divider {
+  height: 1px;
+  background-color: #000;
+  margin: 16px 0;
+}
+
+.hero-gradient {
+  background-size: 200% 200%;
+  animation: gradientShift 15s ease infinite;
+}
+
+@keyframes gradientShift {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+/* Force PDF export to be black and white */
+@media print {
+  * {
+    color: #000 !important;
+    background: transparent !important;
+  }
+
+  .resume-preview {
+    color: #000;
+    background: white;
+  }
+
+  .resume-preview h1,
+  .resume-preview h2,
+  .resume-preview h3,
+  .resume-preview p,
+  .resume-preview li {
+    color: #000 !important;
+  }
+
+  .resume-preview h2 {
+    border-bottom: 1px solid #000;
+  }
+}
+
+/* Form size adjustments */
+.form-container {
+  max-width: 100%;
+  padding: 1.5rem;
+  width: 100%;
+}
+
+.resume-form-section {
+  padding: 1.5rem;
+  margin-bottom: 1.5rem;
+}
+
+/* Removed ScrollArea from form sections */
+.resume-form-fields {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  width: 100%;
+}
+
+.collapsible-card-header {
+  @apply cursor-pointer flex justify-between items-center w-full px-4 py-2;
+}
+
+.collapsible-card-content {
+  overflow: hidden;
+  transition: max-height 0.3s ease;
+}
+
+.collapsible-card-content.collapsed {
+  max-height: 0;
+}
+
+.collapsible-card-content.expanded {
+  max-height: 2000px;
+}
+
+.btn-primary-gradient {
+  @apply bg-gradient-to-r from-primary to-primary/80 hover:from-primary/90 hover:to-primary/70 transition-all duration-300;
+}
+
+.empty-state-container {
+  @apply flex flex-col items-center justify-center p-8 text-center rounded-lg border-2 border-dashed border-muted;
+}

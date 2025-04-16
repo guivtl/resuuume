@@ -1,0 +1,10 @@
+.resume-preview-font {
+  font-family: 'Times New Roman', Times, serif;
+}
+
+/* Estilos adicionais para garantir consistência, se necessário */
+.resume-preview-font h1,
+.resume-preview-font h2,
+.resume-preview-font h3 {
+  font-family: 'Times New Roman', Times, serif;
+} 
