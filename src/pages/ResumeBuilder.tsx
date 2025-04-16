@@ -348,11 +348,15 @@ const ResumeBuilder = () => {
   return (
     <div className="min-h-screen bg-background text-foreground py-8 px-4">
       <div className="container mx-auto">
-        <div className="flex justify-between items-center mb-8">
-          <h1 className="text-3xl font-bold text-foreground">resuuume.</h1>
-          <div className="flex gap-2">
+        {/* Header: Centered column on small, row justify-between on sm+ */}
+        <div className="flex flex-col items-center sm:flex-row sm:justify-between mb-8 gap-4"> 
+          <h1 className="text-3xl font-bold text-center sm:text-left"> {/* Center text on small */}
+            <span className="text-foreground">res</span><span className="text-primary">uuu</span><span className="text-foreground">me.</span>
+          </h1>
+          {/* Button Group: Always in a row, no wrap */}
+          <div className="flex items-center gap-2"> 
             <Link to="/">
-              <Button variant="outline" className="flex items-center gap-2 text-foreground border-border hover:bg-accent/50 hover:text-foreground rounded-sm">
+              <Button variant="outline" className="flex items-center gap-2 text-foreground border-border hover:bg-accent/50 hover:text-foreground rounded-sm text-xs sm:text-sm">
                 <ArrowLeft className="h-4 w-4" /> Voltar
               </Button>
             </Link>
@@ -372,22 +376,9 @@ const ResumeBuilder = () => {
         </div>
         
         <Tabs value={viewMode} onValueChange={(value) => setViewMode(value as 'edit' | 'preview')} className="w-full">
-          <div className="flex justify-center mb-6">
-            <TabsList className="border border-border rounded-sm p-1">
-              <TabsTrigger value="edit" className="flex items-center gap-2 rounded-sm px-3 py-1.5 text-sm font-medium text-muted-foreground data-[state=active]:bg-primary data-[state=active]:text-primary-foreground data-[state=active]:shadow-sm">
-                <ArrowRight className="h-4 w-4" />
-                Editar
-              </TabsTrigger>
-              <TabsTrigger value="preview" className="flex items-center gap-2 rounded-sm px-3 py-1.5 text-sm font-medium text-muted-foreground data-[state=active]:bg-primary data-[state=active]:text-primary-foreground data-[state=active]:shadow-sm">
-                <Eye className="h-4 w-4" />
-                Visualizar
-              </TabsTrigger>
-            </TabsList>
-          </div>
-
           <TabsContent value="edit" className="mt-0">
-            <div className="grid grid-cols-1 md:grid-cols-12 gap-6">
-              <Card className="md:col-span-3 bg-card border border-border h-fit sticky top-4 rounded-none">
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
+              <Card className="lg:col-span-3 bg-card border border-border h-fit lg:sticky lg:top-4 rounded-none">
                 <CardContent className="pt-6">
                   <div className="flex flex-col gap-2">
                     {allSections.map((section, index) => (
@@ -397,7 +388,7 @@ const ResumeBuilder = () => {
                         className={`justify-start text-left rounded-sm ${ 
                           currentStep === index 
                             ? "bg-primary text-primary-foreground hover:bg-primary/90"
-                            : "text-foreground hover:bg-accent/50"
+                            : "text-foreground hover:bg-primary/70"
                         } ${!section.required && !sectionsInNav[section.id] && section.id !== 'personal-info' && section.id !== 'skills' ? "opacity-50" : ""}`}
                         onClick={() => {
                           const targetSection = allSections[index].id;
@@ -414,7 +405,7 @@ const ResumeBuilder = () => {
                 </CardContent>
               </Card>
 
-              <Card className="md:col-span-9 bg-card border border-border rounded-none">
+              <Card className="lg:col-span-9 bg-card border border-border rounded-none">
                 <CardContent className="pt-6">
                   <div className="mt-2">
                     {renderCurrentStep()}
@@ -494,14 +485,19 @@ const ResumeBuilder = () => {
             </DialogHeader>
             <div className="space-y-4 py-4">
               <div className="space-y-2">
-                <Label htmlFor="resume-name" className="text-foreground">Nome do Currículo</Label>
-                <Input
-                  id="resume-name"
+                <Label htmlFor="resumeName" className="text-left text-foreground">
+                  Nome do Currículo
+                </Label>
+                <Input 
+                  id="resumeName" 
                   value={resumeName}
                   onChange={(e) => setResumeName(e.target.value)}
-                  placeholder="Ex: Meu Currículo para Desenvolvedor"
-                  className="bg-input border-border text-foreground"
+                  className="mt-1 bg-input border-border text-foreground"
+                  placeholder="Ex: Currículo Principal"
                 />
+                <p className="text-xs text-muted-foreground mt-2">
+                  Nota: Seu currículo será salvo apenas no armazenamento local do seu navegador.
+                </p>
               </div>
             </div>
             <DialogFooter>
@@ -535,7 +531,7 @@ const ResumeBuilder = () => {
                   {savedResumes.map((resume) => (
                     <div
                       key={resume.id}
-                      className="flex justify-between items-center bg-muted p-3 rounded-md hover:bg-accent hover:text-accent-foreground transition-colors"
+                      className="flex justify-between items-center bg-muted p-3 rounded-md hover:bg-border transition-colors"
                     >
                       <div className="flex-1">
                         <h3 className="font-medium text-foreground">{resume.name}</h3>
@@ -549,7 +545,7 @@ const ResumeBuilder = () => {
                           variant="ghost"
                           size="sm"
                           onClick={() => handleLoadResume(resume.id)}
-                          className="hover:bg-accent/80 text-foreground"
+                          className="hover:bg-primary/10 text-primary"
                         >
                           Carregar
                         </Button>
