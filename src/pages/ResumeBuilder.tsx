@@ -348,24 +348,26 @@ const ResumeBuilder = () => {
   return (
     <div className="min-h-screen bg-background text-foreground py-8 px-4">
       <div className="container mx-auto">
-        {/* Header: Centered column on small, row justify-between on sm+ */}
-        <div className="flex flex-col items-center sm:flex-row sm:justify-between mb-8 gap-4"> 
-          <h1 className="text-3xl font-bold text-center sm:text-left"> {/* Center text on small */}
+        {/* Header: Always row, justify between, items center. Wrap as fallback. */}
+        <div className="flex flex-wrap sm:flex-nowrap justify-between items-center mb-8 gap-4"> 
+          <h1 className="text-3xl font-bold"> {/* Removed text alignment classes */}
             <span className="text-foreground">res</span><span className="text-primary">uuu</span><span className="text-foreground">me.</span>
           </h1>
-          {/* Button Group: Always in a row, no wrap */}
-          <div className="flex items-center gap-2"> 
+          {/* Button Group: Always in a row */}
+          <div className="flex items-center gap-2 flex-shrink-0"> {/* Added flex-shrink-0 to prevent button group shrinking too much */}
             <Link to="/">
-              <Button variant="outline" className="flex items-center gap-2 text-foreground border-border hover:bg-accent/50 hover:text-foreground rounded-sm text-xs sm:text-sm">
+              {/* Use consistent button size */}
+              <Button variant="outline" className="flex items-center gap-2 text-foreground border-border hover:bg-accent/50 hover:text-foreground rounded-sm text-sm"> 
                 <ArrowLeft className="h-4 w-4" /> Voltar
               </Button>
             </Link>
             <Button 
               onClick={() => setViewMode('preview')} 
               disabled={Object.values(resume.personalInfo).every(val => !val)} 
-              className="bg-primary text-primary-foreground hover:bg-primary/90 rounded-sm"
+              // Use consistent button size 
+              className="bg-primary text-primary-foreground hover:bg-primary/90 rounded-sm flex items-center gap-2 text-sm px-3 py-1.5" 
             >
-              <Eye className="mr-2 h-4 w-4" />
+              <Eye className="h-4 w-4" />
               Visualizar
             </Button>
             <ResumeDropdown

@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { NeonButton } from '@/components/ui/neon-button';
-import { FileText } from 'lucide-react';
+import { FileText, Plus } from 'lucide-react';
 
 const Index = () => {
   return (
@@ -16,10 +16,8 @@ const Index = () => {
         <Link to="/resume-builder">
           <NeonButton 
             size="default" 
-            className="flex items-center gap-2"
           >
-            <FileText className="h-4 w-4" />
-            Criar :)
+            <span className="font-semibold">Criar</span>
           </NeonButton>
         </Link>
       </div>

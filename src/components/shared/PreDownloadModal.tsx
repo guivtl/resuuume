@@ -9,6 +9,9 @@ import {
 } from '@/components/ui/dialog';
 import { Button } from '@/components/ui/button';
 import { Linkedin, Github, Instagram, Globe, Download, CheckCircle } from 'lucide-react';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faXTwitter } from '@fortawesome/free-brands-svg-icons';
+import { IconDefinition } from '@fortawesome/fontawesome-svg-core';
 
 interface PreDownloadModalProps {
   isOpen: boolean;
@@ -16,12 +19,19 @@ interface PreDownloadModalProps {
   onDownloadStart: () => void;
 }
 
-// Standardized social links data
-const socialLinks = [
-  { name: 'LinkedIn', url: 'https://linkedin.com/in/guivtl', icon: Linkedin },
-  { name: 'GitHub', url: 'https://github.com/guivtl', icon: Github },
-  { name: 'Instagram', url: 'https://instagram.com/guivtl', icon: Instagram },
-  { name: 'Website', url: 'https://guivital.com', icon: Globe },
+interface SocialLink {
+  name: string;
+  url: string;
+  icon: React.ComponentType<any> | IconDefinition;
+  isFontAwesome: boolean;
+}
+
+const socialLinks: SocialLink[] = [
+  { name: 'LinkedIn', url: 'https://linkedin.com/in/guivtl', icon: Linkedin, isFontAwesome: false },
+  { name: 'GitHub', url: 'https://github.com/guivtl', icon: Github, isFontAwesome: false },
+  { name: 'Instagram', url: 'https://instagram.com/guivtl', icon: Instagram, isFontAwesome: false },
+  { name: 'X (Twitter)', url: 'https://x.com/guivtl', icon: faXTwitter, isFontAwesome: true },
+  { name: 'Website', url: 'https://guivital.com', icon: Globe, isFontAwesome: false },
 ];
 
 const PreDownloadModal: React.FC<PreDownloadModalProps> = ({ isOpen, onClose, onDownloadStart }) => {
@@ -65,19 +75,29 @@ const PreDownloadModal: React.FC<PreDownloadModalProps> = ({ isOpen, onClose, on
             Gostou da ferramenta? Me siga nas redes! 😊
           </p>
           <div className="flex justify-center items-center gap-3">
-            {socialLinks.map((link) => (
-              <Button
-                key={link.name}
-                variant="ghost"
-                size="icon"
-                asChild
-                className="rounded-full hover:bg-accent"
-              >
-                <a href={link.url} target="_blank" rel="noopener noreferrer" aria-label={link.name} className="text-primary hover:text-primary/80 transition-colors">
-                  <link.icon className="h-5 w-5" />
-                </a>
-              </Button>
-            ))}
+            {socialLinks.map((link) => {
+              let iconElement;
+              if (link.isFontAwesome) {
+                iconElement = <FontAwesomeIcon icon={link.icon as IconDefinition} className="h-5 w-5" />;
+              } else {
+                const IconComponent = link.icon as React.ComponentType<any>;
+                iconElement = <IconComponent className="h-5 w-5" />;
+              }
+
+              return (
+                <Button
+                  key={link.name}
+                  variant="ghost"
+                  size="icon"
+                  asChild
+                  className="rounded-full hover:bg-accent"
+                >
+                  <a href={link.url} target="_blank" rel="noopener noreferrer" aria-label={link.name} className="text-primary hover:text-primary/80 transition-colors">
+                    {iconElement}
+                  </a>
+                </Button>
+              );
+            })}
           </div>
         </div>
 
