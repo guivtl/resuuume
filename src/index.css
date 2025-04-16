@@ -4,36 +4,36 @@
 
 @layer base {
   :root {
-    /* New Palette Theme */
-    --background: 220 100% 1%; /* Black #000103 */
-    --foreground: 64 26% 78%;  /* Pearl #d4d6b9 */
+    /* New Light & Professional Theme */
+    --background: 216 33% 97%; /* #F5F7FA - Off-White */
+    --foreground: 215 28% 17%; /* #1F2937 - Dark Grey */
 
-    --card: 220 50% 5%;   /* Derived Dark Grey */
-    --card-foreground: 64 26% 78%; /* Pearl #d4d6b9 */
+    --card: 0 0% 100%;         /* #FFFFFF - White */
+    --card-foreground: 215 28% 17%; /* #1F2937 - Dark Grey */
 
-    --popover: 220 50% 5%;  /* Derived Dark Grey */
-    --popover-foreground: 64 26% 78%; /* Pearl #d4d6b9 */
+    --popover: 0 0% 100%;      /* #FFFFFF - White */
+    --popover-foreground: 215 28% 17%; /* #1F2937 - Dark Grey */
 
-    --primary: 244 50% 65%; /* Tropical indigo #7e78d2 */
-    --primary-foreground: 0 0% 100%; /* White */
+    --primary: 221 83% 53%;    /* #2563EB - Blue */
+    --primary-foreground: 0 0% 100%; /* #FFFFFF - White */
 
-    --secondary: 220 40% 10%; /* Derived Darker Grey */
-    --secondary-foreground: 64 26% 78%; /* Pearl #d4d6b9 */
+    --secondary: 160 84% 42%;   /* #10B981 - Green */
+    --secondary-foreground: 0 0% 100%; /* #FFFFFF - White */
 
-    --muted: 220 40% 10%;  /* Derived Darker Grey */
-    --muted-foreground: 64 15% 60%; /* Derived Muted Pearl */
+    --muted: 220 17% 94%;     /* #EDEFF2 - Light Grey Alt */
+    --muted-foreground: 215 14% 43%; /* #6B7280 - Medium Grey */
 
-    --accent: 244 50% 55%;  /* Derived Darker Tropical indigo */
-    --accent-foreground: 0 0% 100%; /* White */
+    --accent: 217 94% 68%;     /* #60A5FA - Light Blue Hover */
+    --accent-foreground: 0 0% 100%; /* #FFFFFF - White */
 
-    --destructive: 341 73% 66%; /* Cyclamen #e86a92 */
-    --destructive-foreground: 0 0% 100%; /* White */
+    --destructive: 0 84% 60%; /* #EF4444 - Default Red */
+    --destructive-foreground: 0 0% 100%; /* #FFFFFF - White */
 
-    --border: 220 30% 12%; /* Derived Border Grey */
-    --input: 220 30% 12%;  /* Derived Border Grey */
-    --ring: 244 50% 65%;   /* Tropical indigo #7e78d2 */
+    --border: 219 16% 87%;     /* #D1D5DB - Light Grey Border */
+    --input: 0 0% 100%;        /* #FFFFFF - White Input BG */
+    --ring: 212 96% 78%;       /* #93C5FD - Light Blue Ring */
 
-    --radius: 0.5rem; 
+    --radius: 0.5rem;
 
     /* Remove sidebar variables if not used, or theme them similarly */
     /* --sidebar-background: ...; */
@@ -110,15 +110,16 @@
   }
 }
 
-/* Resume preview styles adjusted for new dark theme */
+/* Resume preview styles reset for light theme */
 .resume-preview {
   font-family: Arial, sans-serif;
   line-height: 1.5;
-  background-color: hsl(var(--card)); 
-  color: hsl(var(--foreground)); /* Changed default text to foreground (Pearl) */
+  background-color: hsl(var(--card)); /* White BG */
+  color: hsl(var(--foreground)); /* Dark Grey Text */
   padding: 20px;
   border-radius: var(--radius);
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Slightly darker shadow */
+  /* box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05); /* Subtle shadow */
+  border: 1px solid hsl(var(--border)); /* Add border */
   overflow: hidden;
 }
 
@@ -126,7 +127,7 @@
   font-size: 1.8rem;
   font-weight: bold;
   margin-bottom: 0.5rem;
-  color: hsl(var(--primary)); /* Tropical Indigo for main heading */
+  color: hsl(var(--primary)); /* Blue heading */
 }
 
 .resume-preview h2 {
@@ -135,36 +136,36 @@
   margin-top: 1.5rem;
   margin-bottom: 0.5rem;
   padding-bottom: 0.25rem;
-  border-bottom: 1px solid hsl(var(--primary)); /* Tropical Indigo border */
-  color: hsl(var(--foreground)); /* Pearl text */
+  border-bottom: 1px solid hsl(var(--primary)); /* Blue border */
+  color: hsl(var(--foreground)); /* Dark Grey Text */
 }
 
 .resume-preview h3 {
   font-size: 1.1rem;
   font-weight: bold;
   margin-bottom: 0.25rem;
-  color: hsl(var(--foreground)); /* Pearl text */
+  color: hsl(var(--foreground)); /* Dark Grey Text */
 }
 
 .resume-preview p {
   margin-bottom: 0.5rem;
-  color: hsl(var(--muted-foreground)); /* Muted Pearl */
+  color: hsl(var(--foreground)); /* Dark Grey Text */
 }
 
 .resume-preview ul {
   margin: 0.5rem 0;
   padding-left: 1.5rem;
   list-style-type: disc;
-  color: hsl(var(--muted-foreground)); /* Muted Pearl */
+  color: hsl(var(--foreground)); /* Dark Grey Text */
 }
 
 .resume-preview li::marker {
-   color: hsl(var(--primary)); /* Tropical Indigo bullet points */
+   color: hsl(var(--primary)); /* Blue bullet points */
 }
 
 .resume-preview li {
-  color: hsl(var(--muted-foreground)); /* Muted Pearl */
-  margin-bottom: 0.25rem; 
+  color: hsl(var(--foreground)); /* Dark Grey Text */
+  margin-bottom: 0.25rem;
 }
 
 .resume-preview .contact-info {
@@ -173,14 +174,13 @@
   gap: 1rem;
   margin-bottom: 1rem;
   font-size: 0.9rem;
-  color: hsl(var(--muted-foreground)); /* Muted Pearl */
+  color: hsl(var(--muted-foreground)); /* Medium Grey */
 }
 
 .resume-preview .experience-item,
 .resume-preview .education-item,
 .resume-preview .certification-item {
   margin-bottom: 1rem;
-  color: hsl(var(--foreground)); /* Pearl */
 }
 
 .resume-preview .skills-list,
@@ -188,29 +188,28 @@
   display: flex;
   flex-wrap: wrap;
   gap: 0.5rem;
-  color: hsl(var(--foreground)); /* Pearl */
 }
 
 .resume-preview .skill-item,
 .resume-preview .language-item {
-  padding: 0.25rem 0.75rem; 
-  border-radius: calc(var(--radius) - 4px); 
+  padding: 0.25rem 0.75rem;
+  border-radius: calc(var(--radius) - 4px);
   font-size: 0.9rem;
-  background-color: hsl(var(--secondary)); /* Darker Grey BG */
-  color: hsl(var(--secondary-foreground)); /* Pearl Text */
-  border: 1px solid hsl(var(--border)); 
+  background-color: hsl(var(--muted)); /* Light Grey BG */
+  color: hsl(var(--muted-foreground)); /* Medium Grey Text */
+  border: 1px solid hsl(var(--border));
 }
 
 .resume-preview .date-range {
   font-style: italic;
   font-size: 0.9rem;
-  color: hsl(var(--muted-foreground)); /* Muted Pearl */
+  color: hsl(var(--muted-foreground)); /* Medium Grey */
 }
 
 .resume-preview .company-location,
 .resume-preview .institution-location {
   font-size: 0.9rem;
-  color: hsl(var(--muted-foreground)); /* Muted Pearl */
+  color: hsl(var(--muted-foreground)); /* Medium Grey */
 }
 
 /* Commenting out conflicting classic styles */
