@@ -1,4 +1,3 @@
-
 import type { Config } from "tailwindcss";
 
 export default {
@@ -100,13 +99,13 @@ export default {
 				}
 			},
 			animation: {
-				'accordion-down': 'accordion-down 0.2s ease-out',
-				'accordion-up': 'accordion-up 0.2s ease-out',
-				'fade-in': 'fade-in 0.3s ease-out',
-				'fade-out': 'fade-out 0.3s ease-out',
-				'slide-in-right': 'slide-in-right 0.3s ease-out',
-				'slide-out-left': 'slide-out-left 0.3s ease-out',
-				'slide-in-up': 'slide-in-up 0.3s ease-out'
+				'accordion-down': 'accordion-down 0.15s ease-out',
+				'accordion-up': 'accordion-up 0.15s ease-out',
+				'fade-in': 'fade-in 0.2s ease-out',
+				'fade-out': 'fade-out 0.2s ease-out',
+				'slide-in-right': 'slide-in-right 0.2s ease-out',
+				'slide-out-left': 'slide-out-left 0.2s ease-out',
+				'slide-in-up': 'slide-in-up 0.2s ease-out'
 			}
 		}
 	},

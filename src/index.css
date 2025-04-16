@@ -4,36 +4,36 @@
 
 @layer base {
   :root {
-    /* Black & Green Theme */
-    --background: 0 0% 0%; /* Black */
-    --foreground: 0 0% 100%; /* White */
+    /* New Palette Theme */
+    --background: 220 100% 1%; /* Black #000103 */
+    --foreground: 64 26% 78%;  /* Pearl #d4d6b9 */
 
-    --card: 0 0% 10%; /* Dark Grey */
-    --card-foreground: 0 0% 100%; /* White */
+    --card: 220 50% 5%;   /* Derived Dark Grey */
+    --card-foreground: 64 26% 78%; /* Pearl #d4d6b9 */
 
-    --popover: 0 0% 10%; /* Dark Grey */
-    --popover-foreground: 0 0% 100%; /* White */
+    --popover: 220 50% 5%;  /* Derived Dark Grey */
+    --popover-foreground: 64 26% 78%; /* Pearl #d4d6b9 */
 
-    --primary: 145 63% 49%; /* Green */
+    --primary: 244 50% 65%; /* Tropical indigo #7e78d2 */
     --primary-foreground: 0 0% 100%; /* White */
 
-    --secondary: 0 0% 15%; /* Dark Grey */
-    --secondary-foreground: 0 0% 90%; /* Light Grey */
+    --secondary: 220 40% 10%; /* Derived Darker Grey */
+    --secondary-foreground: 64 26% 78%; /* Pearl #d4d6b9 */
 
-    --muted: 0 0% 15%; /* Dark Grey */
-    --muted-foreground: 0 0% 65%; /* Medium Grey */
+    --muted: 220 40% 10%;  /* Derived Darker Grey */
+    --muted-foreground: 64 15% 60%; /* Derived Muted Pearl */
 
-    --accent: 145 63% 40%; /* Darker Green */
+    --accent: 244 50% 55%;  /* Derived Darker Tropical indigo */
     --accent-foreground: 0 0% 100%; /* White */
 
-    --destructive: 0 72% 51%; /* Red */
+    --destructive: 341 73% 66%; /* Cyclamen #e86a92 */
     --destructive-foreground: 0 0% 100%; /* White */
 
-    --border: 0 0% 20%; /* Dark Grey Border */
-    --input: 0 0% 20%; /* Dark Grey Input */
-    --ring: 145 63% 49%; /* Green Ring */
+    --border: 220 30% 12%; /* Derived Border Grey */
+    --input: 220 30% 12%;  /* Derived Border Grey */
+    --ring: 244 50% 65%;   /* Tropical indigo #7e78d2 */
 
-    --radius: 0.5rem; /* Example radius - keep or adjust as needed */
+    --radius: 0.5rem; 
 
     /* Remove sidebar variables if not used, or theme them similarly */
     /* --sidebar-background: ...; */
@@ -110,15 +110,15 @@
   }
 }
 
-/* Resume preview styles adjusted for dark theme */
+/* Resume preview styles adjusted for new dark theme */
 .resume-preview {
   font-family: Arial, sans-serif;
   line-height: 1.5;
-  background-color: hsl(var(--card)); /* Use card background */
-  color: hsl(var(--card-foreground)); /* Use card foreground */
+  background-color: hsl(var(--card)); 
+  color: hsl(var(--foreground)); /* Changed default text to foreground (Pearl) */
   padding: 20px;
-  border-radius: 8px; /* Use --radius? var(--radius)? */
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Keep shadow or adjust */
+  border-radius: var(--radius);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Slightly darker shadow */
   overflow: hidden;
 }
 
@@ -126,7 +126,7 @@
   font-size: 1.8rem;
   font-weight: bold;
   margin-bottom: 0.5rem;
-  color: hsl(var(--primary)); /* Use primary color for main heading */
+  color: hsl(var(--primary)); /* Tropical Indigo for main heading */
 }
 
 .resume-preview h2 {
@@ -135,36 +135,36 @@
   margin-top: 1.5rem;
   margin-bottom: 0.5rem;
   padding-bottom: 0.25rem;
-  border-bottom: 1px solid hsl(var(--primary)); /* Use primary color for border */
-  color: hsl(var(--foreground)); /* Use foreground color */
+  border-bottom: 1px solid hsl(var(--primary)); /* Tropical Indigo border */
+  color: hsl(var(--foreground)); /* Pearl text */
 }
 
 .resume-preview h3 {
   font-size: 1.1rem;
   font-weight: bold;
   margin-bottom: 0.25rem;
-  color: hsl(var(--foreground)); /* Use foreground color */
+  color: hsl(var(--foreground)); /* Pearl text */
 }
 
 .resume-preview p {
   margin-bottom: 0.5rem;
-  color: hsl(var(--muted-foreground)); /* Use muted foreground for paragraphs */
+  color: hsl(var(--muted-foreground)); /* Muted Pearl */
 }
 
 .resume-preview ul {
   margin: 0.5rem 0;
   padding-left: 1.5rem;
   list-style-type: disc;
-  color: hsl(var(--muted-foreground)); /* Use muted foreground for lists */
+  color: hsl(var(--muted-foreground)); /* Muted Pearl */
 }
 
 .resume-preview li::marker {
-   color: hsl(var(--primary)); /* Green bullet points */
+   color: hsl(var(--primary)); /* Tropical Indigo bullet points */
 }
 
 .resume-preview li {
-  color: hsl(var(--muted-foreground)); /* Use muted foreground */
-  margin-bottom: 0.25rem; /* Add some space between list items */
+  color: hsl(var(--muted-foreground)); /* Muted Pearl */
+  margin-bottom: 0.25rem; 
 }
 
 .resume-preview .contact-info {
@@ -173,14 +173,14 @@
   gap: 1rem;
   margin-bottom: 1rem;
   font-size: 0.9rem;
-  color: hsl(var(--muted-foreground)); /* Muted foreground */
+  color: hsl(var(--muted-foreground)); /* Muted Pearl */
 }
 
 .resume-preview .experience-item,
 .resume-preview .education-item,
 .resume-preview .certification-item {
   margin-bottom: 1rem;
-  color: hsl(var(--foreground)); /* Foreground color */
+  color: hsl(var(--foreground)); /* Pearl */
 }
 
 .resume-preview .skills-list,
@@ -188,37 +188,33 @@
   display: flex;
   flex-wrap: wrap;
   gap: 0.5rem;
-  color: hsl(var(--foreground)); /* Foreground color */
+  color: hsl(var(--foreground)); /* Pearl */
 }
 
 .resume-preview .skill-item,
 .resume-preview .language-item {
-  padding: 0.25rem 0.75rem; /* Slightly more padding */
-  border-radius: calc(var(--radius) - 4px); /* Use sm radius */
+  padding: 0.25rem 0.75rem; 
+  border-radius: calc(var(--radius) - 4px); 
   font-size: 0.9rem;
-  background-color: hsl(var(--secondary)); /* Use secondary background */
-  color: hsl(var(--secondary-foreground)); /* Use secondary foreground */
-  border: 1px solid hsl(var(--border)); /* Add subtle border */
+  background-color: hsl(var(--secondary)); /* Darker Grey BG */
+  color: hsl(var(--secondary-foreground)); /* Pearl Text */
+  border: 1px solid hsl(var(--border)); 
 }
 
 .resume-preview .date-range {
   font-style: italic;
   font-size: 0.9rem;
-  color: hsl(var(--muted-foreground)); /* Muted foreground */
+  color: hsl(var(--muted-foreground)); /* Muted Pearl */
 }
 
 .resume-preview .company-location,
 .resume-preview .institution-location {
   font-size: 0.9rem;
-  color: hsl(var(--muted-foreground)); /* Muted foreground */
+  color: hsl(var(--muted-foreground)); /* Muted Pearl */
 }
 
-/* Remove template specific styles if they conflict or adjust them */
-/* .resume-classic h1 { ... } */
-/* .resume-classic h2 { ... } */
-/* .resume-classic p, ... { ... } */
-
-/* Template specific styles */
+/* Commenting out conflicting classic styles */
+/*
 .resume-classic h1 {
   font-family: 'Times New Roman', Times, serif;
   letter-spacing: 0.05em;
@@ -243,6 +239,7 @@
   background-color: #000;
   margin: 16px 0;
 }
+*/
 
 .hero-gradient {
   background-size: 200% 200%;
