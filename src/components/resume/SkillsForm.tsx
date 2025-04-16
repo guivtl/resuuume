@@ -77,19 +77,19 @@ const SkillsForm: React.FC<SkillsFormProps> = ({ skills, onChange }) => {
   }, [skills]);
 
   return (
-    <div className="space-y-6 animate-fade-in text-gray-100">
+    <div className="space-y-6">
       <div className="space-y-2">
-        <h2 className="text-2xl font-semibold tracking-tight">Habilidades</h2>
+        <h2 className="text-2xl font-semibold text-foreground">Habilidades</h2>
         <p className="text-muted-foreground">
           Adicione suas principais habilidades técnicas e competências.
         </p>
       </div>
 
-      <Card className="rounded-none border-[#fab73d]/50 bg-[#204c39]">
+      <Card className="bg-card border border-border">
         <CardContent className="pt-6 space-y-4">
           <div className="space-y-2">
             <div className="flex items-center justify-between">
-              <Label htmlFor="skills" className="font-medium text-gray-200">
+              <Label htmlFor="skills" className="text-foreground">
                 Habilidades <span className="text-destructive">*</span>
               </Label>
               <Button
@@ -97,21 +97,21 @@ const SkillsForm: React.FC<SkillsFormProps> = ({ skills, onChange }) => {
                 variant="ghost"
                 size="sm"
                 onClick={() => setShowSuggestions(!showSuggestions)}
-                className="text-xs flex items-center gap-1 text-gray-300 hover:text-[#fab73d]"
+                className="text-xs flex items-center gap-1 text-muted-foreground hover:text-foreground"
               >
                 <Lightbulb className="h-3 w-3" />
                 Sugestões
               </Button>
             </div>
             
-            <div className="flex flex-wrap gap-2 min-h-[60px] p-3 border rounded-sm border-gray-700 bg-gray-900/50">
+            <div className="flex flex-wrap gap-2 min-h-[60px] p-3 border border-input rounded-md bg-background">
               {skills.filter(Boolean).map((skill, index) => (
-                <Badge key={index} variant="secondary" className="px-3 py-1.5 gap-2 rounded-sm bg-[#9ec378] text-black">
+                <Badge key={index} variant="default" className="px-3 py-1.5 gap-2 rounded-sm bg-primary text-primary-foreground">
                   {skill}
                   <button
                     type="button"
                     onClick={() => handleRemoveSkill(index)}
-                    className="text-gray-700 hover:text-black transition-colors"
+                    className="text-muted-foreground hover:text-foreground transition-colors"
                   >
                     <X className="h-3 w-3" />
                   </button>
@@ -129,27 +129,32 @@ const SkillsForm: React.FC<SkillsFormProps> = ({ skills, onChange }) => {
                 }}
                 onKeyDown={handleKeyDown}
                 placeholder="Digite uma habilidade e pressione Enter"
-                className={`rounded-sm bg-gray-900 border-gray-700 focus:border-[#fab73d] focus:ring-[#fab73d] text-white ${error ? 'border-destructive' : ''}`}
+                className={`mt-1 bg-input border-border text-foreground ${error ? 'border-destructive' : ''}`}
               />
-              <Button type="button" onClick={handleAddSkill} size="sm" className="rounded-sm bg-[#fab73d] text-black hover:bg-[#fab73d]/90">
+              <Button 
+                type="button" 
+                onClick={handleAddSkill} 
+                size="icon" 
+                className="bg-primary text-primary-foreground hover:bg-primary/90"
+              >
                 <Plus className="h-4 w-4" />
               </Button>
             </div>
             
-            {error && <p className="text-xs text-destructive">{error}</p>}
+            {error && <p className="text-sm text-destructive mt-1">{error}</p>}
           </div>
           
           {showSuggestions && (
-            <div className="border rounded-sm border-gray-700 overflow-hidden bg-[#204c39]">
-              <div className="bg-[#2a5c4a] p-3">
-                <h4 className="font-medium text-sm text-white">Sugestões de Habilidades</h4>
+            <div className="border border-border rounded-md overflow-hidden bg-background mt-4">
+              <div className="bg-muted p-3 border-b border-border">
+                <h4 className="font-medium text-sm text-foreground">Sugestões de Habilidades</h4>
               </div>
               <div className="p-3 flex flex-wrap gap-2 max-h-[200px] overflow-y-auto">
                 {SKILL_SUGGESTIONS.map((skill, index) => (
                   <Badge
                     key={index}
                     variant="outline"
-                    className="px-3 py-1.5 cursor-pointer rounded-sm border-gray-600 text-gray-300 hover:bg-[#9ec378]/20 hover:text-white transition-colors"
+                    className="px-3 py-1.5 cursor-pointer rounded-sm border-border text-muted-foreground hover:bg-accent hover:text-accent-foreground transition-colors"
                     onClick={() => addSuggestion(skill)}
                   >
                     {skill}
@@ -160,10 +165,6 @@ const SkillsForm: React.FC<SkillsFormProps> = ({ skills, onChange }) => {
           )}
         </CardContent>
       </Card>
-
-      <div className="text-sm text-muted-foreground">
-        <p>Inclua habilidades técnicas, ferramentas e competências relevantes para a vaga desejada.</p>
-      </div>
     </div>
   );
 };

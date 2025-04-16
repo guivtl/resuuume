@@ -175,9 +175,9 @@ const CertificationsForm: React.FC<CertificationsFormProps> = ({
   }, [certifications]);
 
   return (
-    <div className="space-y-6 animate-fade-in text-gray-100">
+    <div className="space-y-6">
       <div className="space-y-2">
-        <h2 className="text-2xl font-semibold tracking-tight">Certificações</h2>
+        <h2 className="text-2xl font-semibold text-foreground">Certificações</h2>
         <p className="text-muted-foreground">
           Adicione suas certificações e formações complementares.
         </p>
@@ -185,19 +185,19 @@ const CertificationsForm: React.FC<CertificationsFormProps> = ({
 
       <div className="space-y-4">
         {certifications.map((certification, index) => (
-          <Card key={certification.id} className="relative overflow-hidden rounded-none border-[#fab73d]/50 bg-[#204c39]">
+          <Card key={certification.id} className="bg-card border border-border overflow-hidden">
             <div 
-              className="collapsible-card-header bg-[#2a5c4a]"
+              className="flex justify-between items-center p-4 cursor-pointer hover:bg-muted/50"
               onClick={() => toggleCardCollapse(certification.id)}
             >
               <div className="flex items-center gap-2">
                 {collapsedCards[certification.id] ? (
-                  <PlusCircle className="h-4 w-4 text-[#fab73d]" />
+                  <PlusCircle className="h-5 w-5 text-primary" />
                 ) : (
-                  <MinusCircle className="h-4 w-4 text-[#fab73d]" />
+                  <MinusCircle className="h-5 w-5 text-primary" />
                 )}
-                <span className="font-medium text-white">
-                  {certification.name ? certification.name : `Certificação ${index + 1}`}
+                <span className="text-lg font-medium text-foreground">
+                  {certification.name || `Certificação ${index + 1}`}
                   {certification.issuer && ` - ${certification.issuer}`}
                 </span>
               </div>
@@ -212,23 +212,22 @@ const CertificationsForm: React.FC<CertificationsFormProps> = ({
                       removeCertification(certification.id);
                     }}
                     title="Remover certificação"
-                    className="text-gray-400 hover:text-red-500"
                   >
-                    <Trash2 className="h-4 w-4" />
+                    <Trash2 className="h-4 w-4 text-destructive" />
                   </Button>
                 )}
                 {collapsedCards[certification.id] ? (
-                  <ChevronDown className="h-4 w-4" />
+                  <ChevronDown className="h-5 w-5 text-muted-foreground" />
                 ) : (
-                  <ChevronUp className="h-4 w-4" />
+                  <ChevronUp className="h-5 w-5 text-muted-foreground" />
                 )}
               </div>
             </div>
             
-            <div className={`collapsible-card-content ${collapsedCards[certification.id] ? 'collapsed' : 'expanded'}`}>
-              <CardContent className="pt-6 grid grid-cols-1 md:grid-cols-2 gap-6">
+            <CardContent className={`pt-4 px-4 pb-6 border-t border-border ${collapsedCards[certification.id] ? 'hidden' : 'block'}`}>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div className="space-y-2">
-                  <Label htmlFor={`name-${certification.id}`} className="font-medium text-gray-200">
+                  <Label htmlFor={`name-${certification.id}`} className="text-foreground">
                     Nome da Certificação <span className="text-destructive">*</span>
                   </Label>
                   <Input
@@ -236,15 +235,15 @@ const CertificationsForm: React.FC<CertificationsFormProps> = ({
                     value={certification.name}
                     onChange={(e) => handleChange(certification.id, 'name', e.target.value)}
                     placeholder="Ex: Certified Scrum Master (CSM)"
-                    className={`rounded-sm bg-gray-900 border-gray-700 focus:border-[#fab73d] focus:ring-[#fab73d] text-white ${errors[certification.id]?.name ? 'border-destructive' : ''}`}
+                    className={`mt-1 bg-input border-border text-foreground ${errors[certification.id]?.name ? 'border-destructive' : ''}`}
                   />
                   {errors[certification.id]?.name && (
-                    <p className="text-xs text-destructive">{errors[certification.id].name}</p>
+                    <p className="text-sm text-destructive mt-1">{errors[certification.id].name}</p>
                   )}
                 </div>
 
                 <div className="space-y-2">
-                  <Label htmlFor={`issuer-${certification.id}`} className="font-medium text-gray-200">
+                  <Label htmlFor={`issuer-${certification.id}`} className="text-foreground">
                     Emissor <span className="text-destructive">*</span>
                   </Label>
                   <Input
@@ -252,58 +251,52 @@ const CertificationsForm: React.FC<CertificationsFormProps> = ({
                     value={certification.issuer}
                     onChange={(e) => handleChange(certification.id, 'issuer', e.target.value)}
                     placeholder="Ex: Scrum Alliance"
-                    className={`rounded-sm bg-gray-900 border-gray-700 focus:border-[#fab73d] focus:ring-[#fab73d] text-white ${errors[certification.id]?.issuer ? 'border-destructive' : ''}`}
+                    className={`mt-1 bg-input border-border text-foreground ${errors[certification.id]?.issuer ? 'border-destructive' : ''}`}
                   />
                   {errors[certification.id]?.issuer && (
-                    <p className="text-xs text-destructive">{errors[certification.id].issuer}</p>
+                    <p className="text-sm text-destructive mt-1">{errors[certification.id].issuer}</p>
                   )}
                 </div>
 
                 <div className="space-y-2">
-                  <Label htmlFor={`date-${certification.id}`} className="font-medium text-gray-200">
-                    Data
-                  </Label>
+                  <Label htmlFor={`date-${certification.id}`} className="text-foreground">Data de Emissão</Label>
                   <Input
                     id={`date-${certification.id}`}
                     type="text"
-                    value={rawDateInputs[certification.id] ?? ''} 
-                    onChange={(e) => handleRawDateChange(certification.id, e.target.value)} 
-                    onBlur={() => handleDateBlur(certification.id)} 
+                    value={rawDateInputs[certification.id] || ''}
+                    onChange={(e) => handleRawDateChange(certification.id, e.target.value)}
+                    onBlur={() => handleDateBlur(certification.id)}
                     placeholder="MM/YYYY"
                     maxLength={7}
-                    className={`rounded-sm bg-gray-900 border-gray-700 focus:border-[#fab73d] focus:ring-[#fab73d] text-white`}
+                    className={`mt-1 bg-input border-border text-foreground ${errors[certification.id]?.date ? 'border-destructive' : ''}`}
                   />
+                  {errors[certification.id]?.date && (
+                    <p className="text-sm text-destructive mt-1">{errors[certification.id].date}</p>
+                  )}
                 </div>
 
                 <div className="space-y-2">
-                  <Label htmlFor={`url-${certification.id}`} className="font-medium text-gray-200">
-                    URL (opcional)
-                  </Label>
+                  <Label htmlFor={`url-${certification.id}`} className="text-foreground">URL (Opcional)</Label>
                   <Input
                     id={`url-${certification.id}`}
                     value={certification.url}
                     onChange={(e) => handleChange(certification.id, 'url', e.target.value)}
-                    placeholder="Ex: https://www.credential.net/abc123"
-                    className={`rounded-sm bg-gray-900 border-gray-700 focus:border-[#fab73d] focus:ring-[#fab73d] text-white`}
+                    placeholder="Link para a credencial"
+                    className="mt-1 bg-input border-border text-foreground"
                   />
                 </div>
-              </CardContent>
-            </div>
+              </div>
+            </CardContent>
           </Card>
         ))}
 
         <Button
           type="button"
           onClick={addCertification}
-          variant="outline"
-          className="w-full rounded-sm border-[#fab73d] text-[#fab73d] hover:bg-[#9ec378]/20 hover:text-white"
+          className="w-full flex items-center justify-center gap-2 bg-primary text-primary-foreground hover:bg-primary/90"
         >
-          <Plus className="h-4 w-4 mr-2" /> Adicionar outra certificação
+          <Plus className="h-4 w-4" /> Adicionar Certificação
         </Button>
-      </div>
-
-      <div className="text-sm text-muted-foreground">
-        <p>Certifique-se de incluir certificações relevantes para a posição desejada.</p>
       </div>
     </div>
   );

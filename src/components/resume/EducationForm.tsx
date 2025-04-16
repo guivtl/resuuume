@@ -198,9 +198,9 @@ const EducationForm: React.FC<EducationFormProps> = ({ education, onChange }) =>
   }, [education]);
 
   return (
-    <div className="space-y-6 animate-fade-in text-gray-100">
+    <div className="space-y-6">
       <div className="space-y-2">
-        <h2 className="text-2xl font-semibold tracking-tight">Formação Acadêmica</h2>
+        <h2 className="text-2xl font-semibold text-foreground">Formação Acadêmica</h2>
         <p className="text-muted-foreground">
           Adicione sua formação acadêmica e cursos relevantes.
         </p>
@@ -208,19 +208,19 @@ const EducationForm: React.FC<EducationFormProps> = ({ education, onChange }) =>
 
       <div className="space-y-4">
         {education.map((edu, index) => (
-          <Card key={edu.id} className="relative overflow-hidden rounded-none border-[#fab73d]/50 bg-[#204c39]">
+          <Card key={edu.id} className="bg-card border border-border overflow-hidden">
             <div 
-              className="collapsible-card-header bg-[#2a5c4a]"
+              className="flex justify-between items-center p-4 cursor-pointer hover:bg-muted/50"
               onClick={() => toggleCardCollapse(edu.id)}
             >
               <div className="flex items-center gap-2">
                 {collapsedCards[edu.id] ? (
-                  <PlusCircle className="h-4 w-4 text-[#fab73d]" />
+                  <PlusCircle className="h-5 w-5 text-primary" />
                 ) : (
-                  <MinusCircle className="h-4 w-4 text-[#fab73d]" />
+                  <MinusCircle className="h-5 w-5 text-primary" />
                 )}
-                <span className="font-medium text-white">
-                  {edu.institution ? edu.institution : `Formação ${index + 1}`}
+                <span className="text-lg font-medium text-foreground">
+                  {edu.institution || `Formação ${index + 1}`}
                   {edu.degree && ` - ${edu.degree}`}
                 </span>
               </div>
@@ -235,160 +235,136 @@ const EducationForm: React.FC<EducationFormProps> = ({ education, onChange }) =>
                       removeEducation(edu.id);
                     }}
                     title="Remover formação"
-                    className="text-gray-400 hover:text-red-500"
                   >
-                    <Trash2 className="h-4 w-4" />
+                    <Trash2 className="h-4 w-4 text-destructive" />
                   </Button>
                 )}
                 {collapsedCards[edu.id] ? (
-                  <ChevronDown className="h-4 w-4" />
+                  <ChevronDown className="h-5 w-5 text-muted-foreground" />
                 ) : (
-                  <ChevronUp className="h-4 w-4" />
+                  <ChevronUp className="h-5 w-5 text-muted-foreground" />
                 )}
               </div>
             </div>
             
-            <div className={`collapsible-card-content ${collapsedCards[edu.id] ? 'collapsed' : 'expanded'}`}>
-              <CardContent className="pt-6 grid grid-cols-1 md:grid-cols-2 gap-6">
+            <CardContent className={`pt-4 px-4 pb-6 border-t border-border ${collapsedCards[edu.id] ? 'hidden' : 'block'}`}>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div className="space-y-2">
-                  <Label htmlFor={`institution-${edu.id}`} className="font-medium text-gray-200">
+                  <Label htmlFor={`institution-${edu.id}`} className="text-foreground">
                     Instituição <span className="text-destructive">*</span>
                   </Label>
                   <Input
                     id={`institution-${edu.id}`}
                     value={edu.institution}
                     onChange={(e) => handleChange(edu.id, 'institution', e.target.value)}
-                    placeholder="Ex: Universidade de São Paulo"
-                    className={`rounded-sm bg-gray-900 border-gray-700 focus:border-[#fab73d] focus:ring-[#fab73d] text-white ${errors[edu.id]?.institution ? 'border-destructive' : ''}`}
+                    placeholder="Ex: Universidade Federal..."
+                    className={`mt-1 bg-input border-border text-foreground ${errors[edu.id]?.institution ? 'border-destructive' : ''}`}
                   />
                   {errors[edu.id]?.institution && (
-                    <p className="text-xs text-destructive">{errors[edu.id].institution}</p>
+                    <p className="text-sm text-destructive mt-1">{errors[edu.id].institution}</p>
                   )}
                 </div>
 
                 <div className="space-y-2">
-                  <Label htmlFor={`degree-${edu.id}`} className="font-medium text-gray-200">
+                  <Label htmlFor={`degree-${edu.id}`} className="text-foreground">
                     Grau <span className="text-destructive">*</span>
                   </Label>
                   <Input
                     id={`degree-${edu.id}`}
                     value={edu.degree}
                     onChange={(e) => handleChange(edu.id, 'degree', e.target.value)}
-                    placeholder="Ex: Bacharelado, Mestrado, Técnico"
-                    className={`rounded-sm bg-gray-900 border-gray-700 focus:border-[#fab73d] focus:ring-[#fab73d] text-white ${errors[edu.id]?.degree ? 'border-destructive' : ''}`}
+                    placeholder="Ex: Bacharelado, Técnico"
+                    className={`mt-1 bg-input border-border text-foreground ${errors[edu.id]?.degree ? 'border-destructive' : ''}`}
                   />
                   {errors[edu.id]?.degree && (
-                    <p className="text-xs text-destructive">{errors[edu.id].degree}</p>
+                    <p className="text-sm text-destructive mt-1">{errors[edu.id].degree}</p>
                   )}
                 </div>
-
+                
                 <div className="space-y-2">
-                  <Label htmlFor={`field-${edu.id}`} className="font-medium text-gray-200">
-                    Área de Estudo
-                  </Label>
+                  <Label htmlFor={`field-${edu.id}`} className="text-foreground">Área de Estudo</Label>
                   <Input
                     id={`field-${edu.id}`}
                     value={edu.field}
                     onChange={(e) => handleChange(edu.id, 'field', e.target.value)}
-                    placeholder="Ex: Administração, Ciência da Computação"
-                    className={`rounded-sm bg-gray-900 border-gray-700 focus:border-[#fab73d] focus:ring-[#fab73d] text-white ${errors[edu.id]?.field ? 'border-destructive' : ''}`}
+                    placeholder="Ex: Ciência da Computação"
+                    className="mt-1 bg-input border-border text-foreground"
                   />
                 </div>
 
                 <div className="space-y-2">
-                  <Label htmlFor={`location-${edu.id}`} className="font-medium text-gray-200">
-                    Localização
-                  </Label>
+                  <Label htmlFor={`location-${edu.id}`} className="text-foreground">Localização</Label>
                   <Input
                     id={`location-${edu.id}`}
                     value={edu.location}
                     onChange={(e) => handleChange(edu.id, 'location', e.target.value)}
-                    placeholder="Ex: São Paulo, SP"
-                    className={`rounded-sm bg-gray-900 border-gray-700 focus:border-[#fab73d] focus:ring-[#fab73d] text-white ${errors[edu.id]?.location ? 'border-destructive' : ''}`}
+                    placeholder="Ex: Rio de Janeiro, RJ"
+                    className="mt-1 bg-input border-border text-foreground"
                   />
                 </div>
 
-                <div className="md:col-span-2 grid grid-cols-2 gap-4">
-                  <div className="space-y-2">
-                    <Label htmlFor={`startDate-${edu.id}`} className="font-medium text-gray-200">
-                      Data de Início <span className="text-destructive">*</span>
-                    </Label>
-                    <Input
-                      id={`startDate-${edu.id}`}
-                      type="text"
-                      value={rawDateInputs[edu.id]?.startDate ?? ''} 
-                      onChange={(e) => handleRawDateChange(edu.id, 'startDate', e.target.value)} 
-                      onBlur={() => handleDateBlur(edu.id, 'startDate')} 
-                      placeholder="MM/YYYY"
-                      maxLength={7}
-                      className={`rounded-sm bg-gray-900 border-gray-700 focus:border-[#fab73d] focus:ring-[#fab73d] text-white ${errors[edu.id]?.startDate ? 'border-destructive' : ''}`}
-                    />
-                    {errors[edu.id]?.startDate && (
-                      <p className="text-xs text-destructive">{errors[edu.id].startDate}</p>
-                    )}
-                  </div>
-
-                  <div className="space-y-2">
-                    <Label htmlFor={`endDate-${edu.id}`} className="font-medium text-gray-200">
-                      Data de Término {!edu.current && <span className="text-destructive">*</span>}
-                    </Label>
-                    <Input
-                      id={`endDate-${edu.id}`}
-                      type="text"
-                      value={rawDateInputs[edu.id]?.endDate ?? ''} 
-                      onChange={(e) => handleRawDateChange(edu.id, 'endDate', e.target.value)} 
-                      onBlur={() => handleDateBlur(edu.id, 'endDate')} 
-                      placeholder="MM/YYYY"
-                      maxLength={7}
-                      disabled={edu.current}
-                      className={`rounded-sm bg-gray-900 border-gray-700 focus:border-[#fab73d] focus:ring-[#fab73d] text-white ${errors[edu.id]?.endDate ? 'border-destructive' : 'disabled:opacity-50'}`}
-                    />
-                    {errors[edu.id]?.endDate && (
-                      <p className="text-xs text-destructive">{errors[edu.id].endDate}</p>
-                    )}
-                  </div>
-                </div>
-
-                <div className="flex items-center space-x-2">
-                  <Switch
-                    id={`current-${edu.id}`}
-                    checked={edu.current}
-                    onCheckedChange={(checked) => handleChange(edu.id, 'current', checked)}
+                <div className="space-y-2">
+                   <Label htmlFor={`startDate-${edu.id}`} className="text-foreground">Data de Início*</Label>
+                   <Input
+                    id={`startDate-${edu.id}`}
+                    type="text"
+                    value={rawDateInputs[edu.id]?.startDate || ''}
+                    onChange={(e) => handleRawDateChange(edu.id, 'startDate', e.target.value)}
+                    onBlur={() => handleDateBlur(edu.id, 'startDate')}
+                    placeholder="MM/YYYY"
+                    maxLength={7}
+                    className={`mt-1 bg-input border-border text-foreground ${errors[edu.id]?.startDate ? 'border-destructive' : ''}`}
                   />
-                  <Label htmlFor={`current-${edu.id}`} className="font-medium cursor-pointer text-gray-200">
-                    Em andamento
-                  </Label>
+                  {errors[edu.id]?.startDate && <p className="text-sm text-destructive mt-1">{errors[edu.id].startDate}</p>}
                 </div>
 
-                <div className="md:col-span-2 space-y-2">
-                  <Label htmlFor={`description-${edu.id}`} className="font-medium text-gray-200">
-                    Descrição (opcional)
-                  </Label>
-                  <Textarea
-                    id={`description-${edu.id}`}
-                    value={edu.description}
-                    onChange={(e) => handleChange(edu.id, 'description', e.target.value)}
-                    placeholder="Descreva destaques acadêmicos, projetos relevantes, etc."
-                    className="min-h-[100px] rounded-sm bg-gray-900 border-gray-700 focus:border-[#fab73d] focus:ring-[#fab73d] text-white"
+                <div className="space-y-2">
+                   <Label htmlFor={`endDate-${edu.id}`} className="text-foreground">Data de Término*</Label>
+                   <Input
+                    id={`endDate-${edu.id}`}
+                    type="text"
+                    value={edu.current ? '' : (rawDateInputs[edu.id]?.endDate || '')}
+                    onChange={(e) => handleRawDateChange(edu.id, 'endDate', e.target.value)}
+                    onBlur={() => handleDateBlur(edu.id, 'endDate')}
+                    placeholder="MM/YYYY"
+                    disabled={edu.current}
+                    maxLength={7}
+                     className={`mt-1 bg-input border-border text-foreground ${edu.current ? 'disabled:opacity-50 disabled:cursor-not-allowed' : ''} ${errors[edu.id]?.endDate ? 'border-destructive' : ''}`}
                   />
+                   {errors[edu.id]?.endDate && <p className="text-sm text-destructive mt-1">{errors[edu.id].endDate}</p>}
                 </div>
-              </CardContent>
-            </div>
+              </div>
+               <div className="flex items-center space-x-2 mt-4 mb-4">
+                 <Switch 
+                  id={`current-${edu.id}`} 
+                  checked={edu.current}
+                  onCheckedChange={(checked) => handleChange(edu.id, 'current', checked)}
+                  className="data-[state=checked]:bg-primary data-[state=unchecked]:bg-muted"
+                />
+                <Label htmlFor={`current-${edu.id}`} className="text-foreground">Cursando Atualmente</Label>
+              </div>
+               <div className="space-y-2">
+                 <Label htmlFor={`description-${edu.id}`} className="text-foreground">Descrição (Opcional)</Label>
+                 <Textarea
+                  id={`description-${edu.id}`}
+                  value={edu.description}
+                  onChange={(e) => handleChange(edu.id, 'description', e.target.value)}
+                  placeholder="Descreva atividades extracurriculares, prêmios ou projetos relevantes."
+                  rows={3}
+                  className="mt-1 bg-input border-border text-foreground"
+                />
+              </div>
+            </CardContent>
           </Card>
         ))}
 
-        <Button
-          type="button"
-          onClick={addEducation}
-          variant="outline"
-          className="w-full rounded-sm border-[#fab73d] text-[#fab73d] hover:bg-[#9ec378]/20 hover:text-white"
+        <Button 
+          type="button" 
+          onClick={addEducation} 
+          className="mt-4 w-full flex items-center justify-center gap-2 bg-primary text-primary-foreground hover:bg-primary/90"
         >
-          <Plus className="h-4 w-4 mr-2" /> Adicionar outra formação
+          <Plus className="h-4 w-4" /> Adicionar Formação
         </Button>
-      </div>
-
-      <div className="text-sm text-muted-foreground">
-        <p>Liste suas formações da mais recente para a mais antiga.</p>
       </div>
     </div>
   );

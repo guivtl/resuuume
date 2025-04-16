@@ -272,9 +272,19 @@ const ExperienceForm: React.FC<ExperienceFormProps> = ({ experiences, onChange }
                 {exp.company ? ` at ${exp.company}` : ''}
               </h3>
               <div className="flex items-center gap-2">
-                <Button variant="ghost" size="icon" onClick={(e) => { e.stopPropagation(); removeExperience(exp.id); }}>
-                  <Trash2 className="h-4 w-4 text-destructive" />
-                </Button>
+                {experiences.length > 1 && (
+                  <Button
+                    variant="ghost"
+                    size="icon"
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      removeExperience(exp.id);
+                    }}
+                    className="text-muted-foreground hover:text-destructive"
+                  >
+                    <Trash2 className="h-4 w-4" />
+                  </Button>
+                )}
                 {isCollapsed ? <ChevronDown className="h-5 w-5 text-muted-foreground" /> : <ChevronUp className="h-5 w-5 text-muted-foreground" />}
               </div>
             </div>
@@ -350,7 +360,7 @@ const ExperienceForm: React.FC<ExperienceFormProps> = ({ experiences, onChange }
                   id={`current-${exp.id}`} 
                   checked={exp.current}
                   onCheckedChange={(checked) => handleChange(exp.id, 'current', checked)}
-                  className="data-[state=checked]:bg-primary data-[state=unchecked]:bg-input"
+                  className="data-[state=checked]:bg-primary data-[state=unchecked]:bg-muted"
                 />
                 <Label htmlFor={`current-${exp.id}`} className="text-foreground">Emprego Atual</Label>
               </div>
@@ -420,7 +430,12 @@ const ExperienceForm: React.FC<ExperienceFormProps> = ({ experiences, onChange }
                     </Button>
                   </div>
                 ))}
-                <Button variant="outline" size="sm" onClick={() => addAchievement(exp.id)} className="mt-1 text-xs">
+                <Button 
+                  variant="outline"
+                  size="sm" 
+                  onClick={() => addAchievement(exp.id)} 
+                  className="mt-1 text-xs"
+                >
                   <PlusCircle className="mr-1 h-3 w-3" /> Adicionar Realização
                 </Button>
               </div>
@@ -429,8 +444,12 @@ const ExperienceForm: React.FC<ExperienceFormProps> = ({ experiences, onChange }
         );
       })}
 
-      <Button variant="secondary" onClick={addExperience} className="w-full">
-        <Plus className="mr-2 h-4 w-4" /> Adicionar Experiência
+      <Button 
+        type="button" 
+        onClick={addExperience} 
+        className="mt-4 w-full flex items-center justify-center gap-2 bg-primary text-primary-foreground hover:bg-primary/90"
+      >
+        <Plus className="h-4 w-4" /> Adicionar Experiência
       </Button>
     </div>
   );
