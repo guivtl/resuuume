@@ -268,8 +268,7 @@ const ExperienceForm: React.FC<ExperienceFormProps> = ({ experiences, onChange }
               onClick={() => toggleCardCollapse(exp.id)}
             >
               <h3 className="text-lg font-medium text-foreground">
-                {exp.position || `Experiência ${index + 1}`}
-                {exp.company ? ` at ${exp.company}` : ''}
+                {exp.company || `Experiência ${index + 1}`}
               </h3>
               <div className="flex items-center gap-2">
                 {experiences.length > 1 && (
