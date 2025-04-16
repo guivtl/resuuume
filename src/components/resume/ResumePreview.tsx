@@ -1,11 +1,9 @@
 import React, { useState } from 'react';
 import { ResumeData } from '@/types/resume';
-import { Download, Eye, X, Maximize, ArrowLeft, Linkedin, Twitter, Instagram } from 'lucide-react';
+import { Download, Eye, X, Maximize, ArrowLeft, Shrink } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { generateResumePDF } from '@/lib/pdfGenerator';
 import PreDownloadModal from '@/components/shared/PreDownloadModal';
-
-// Adiciona estilos para a fonte Times New Roman na preview
 import './ResumePreview.css';
 
 interface ResumePreviewProps {
@@ -170,7 +168,7 @@ const ResumePreview: React.FC<ResumePreviewProps> = ({
           </div>
         )}
         
-        {data.skills.filter(Boolean).length > 0 && (
+        {enabledSections.skills && data.skills.filter(Boolean).length > 0 && (
           <div className="space-y-2">
             <h2 className="text-lg font-bold uppercase border-b border-black pb-1">HABILIDADES</h2>
             <div className="flex flex-wrap gap-2">
@@ -224,7 +222,7 @@ const ResumePreview: React.FC<ResumePreviewProps> = ({
           </div>
         )}
         
-        {data.additionalSections.length > 0 && (
+        {data.additionalSections?.length > 0 && (
           <div className="space-y-4">
             {data.additionalSections.map((section, index) => (
               <div key={index} className="space-y-2">
@@ -243,56 +241,56 @@ const ResumePreview: React.FC<ResumePreviewProps> = ({
   };
 
   return (
-    <div className={`fixed inset-0 bg-black/80 backdrop-blur-sm z-50 flex items-center justify-center transition-all duration-300 ${expanded ? 'p-0' : 'p-4'}`}>
-      <div className={`bg-gray-900 text-white shadow-xl overflow-hidden transition-all duration-300 flex flex-col rounded-none ${expanded ? 'w-full h-full' : 'max-w-6xl w-full max-h-[90vh]'}`}>
-        <div className="p-4 border-b border-gray-700 flex justify-between items-center bg-gray-900">
+    <div className={`fixed inset-0 bg-background/80 backdrop-blur-sm z-50 flex items-center justify-center transition-all duration-300 ${expanded ? 'p-0' : 'p-4'}`}>
+      <div className={`bg-card text-card-foreground shadow-xl overflow-hidden transition-all duration-300 flex flex-col border border-border rounded-lg ${expanded ? 'w-full h-full rounded-none border-none' : 'max-w-6xl w-full max-h-[90vh]'}`}>
+        <div className="p-4 border-b border-border flex justify-between items-center flex-shrink-0">
           <div className="flex items-center gap-2">
-            <Eye className="h-5 w-5 text-gray-300" />
-            <h2 className="font-semibold text-gray-100">Pré-visualização</h2>
+            <Eye className="h-5 w-5 text-muted-foreground" />
+            <h2 className="font-semibold text-foreground">Pré-visualização (Estilo PDF)</h2>
           </div>
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-1">
             <Button
               variant="ghost"
               size="icon"
               onClick={() => setExpanded(!expanded)}
               title={expanded ? 'Reduzir' : 'Expandir'}
-              className="text-gray-300 hover:bg-gray-700 rounded-sm"
+              className="text-muted-foreground hover:bg-accent hover:text-accent-foreground rounded-sm"
             >
-              {expanded ? <X className="h-4 w-4" /> : <Maximize className="h-4 w-4" />}
+              {expanded ? <Shrink className="h-4 w-4" /> : <Maximize className="h-4 w-4" />}
             </Button>
             <Button
               variant="ghost"
               size="icon"
               onClick={onClose}
               title="Fechar"
-              className="text-gray-300 hover:bg-gray-700 rounded-sm"
+              className="text-muted-foreground hover:bg-accent hover:text-accent-foreground rounded-sm"
             >
               <X className="h-4 w-4" />
             </Button>
           </div>
         </div>
         
-        <div className="flex flex-col flex-1 overflow-auto p-6 bg-gray-700">
-          <div className="resume-preview-content max-w-5xl mx-auto bg-white border border-gray-300 p-8 min-h-[842px] shadow-md overflow-y-auto flex-1 rounded-none">
+        <div className="flex-1 overflow-auto p-6 bg-muted">
+          <div className="resume-preview-content max-w-5xl mx-auto bg-white border border-gray-300 p-8 min-h-[842px] shadow-md overflow-y-auto flex-1 rounded-sm">
             {renderClassicTemplate()}
           </div>
-          <div className="text-center mt-4 text-sm text-gray-300">
-            <p>O PDF será gerado em preto e branco com fonte Times New Roman.</p>
+          <div className="text-center mt-4 text-xs text-muted-foreground max-w-5xl mx-auto px-8">
+            <p>Esta pré-visualização reflete o layout do PDF final (preto e branco, Times New Roman).</p>
           </div>
         </div>
         
-        <div className="flex justify-center py-4 border-t border-gray-700 bg-gray-900 gap-4">
+        <div className="flex justify-center py-3 border-t border-border bg-card flex-shrink-0 gap-4 px-4">
           <Button 
             onClick={onClose} 
             variant="outline" 
-            className="flex items-center gap-2 text-white border-gray-600 hover:bg-gray-700 rounded-sm"
+            className="flex items-center gap-2 rounded-sm"
           >
-            <ArrowLeft className="h-4 w-4" /> Voltar
+            <ArrowLeft className="h-4 w-4" /> Voltar para Edição
           </Button>
           
           <Button 
             onClick={handleDownloadClick}
-            className="flex items-center gap-2 bg-white text-black hover:bg-gray-200 rounded-sm" 
+            className="flex items-center gap-2 rounded-sm bg-primary text-primary-foreground hover:bg-primary/90"
             disabled={downloading}
           >
             <Download className="h-4 w-4" /> 

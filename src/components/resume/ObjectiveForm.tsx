@@ -55,18 +55,18 @@ const ObjectiveForm: React.FC<ObjectiveFormProps> = ({ objective, onChange }) =>
   };
 
   return (
-    <div className="space-y-6 animate-fade-in">
+    <div className="space-y-6">
       <div className="space-y-2">
-        <h2 className="text-2xl font-semibold tracking-tight">Objetivo Profissional</h2>
+        <h2 className="text-2xl font-semibold text-foreground">Objetivo Profissional</h2>
         <p className="text-muted-foreground">
           Descreva brevemente seu objetivo de carreira e o que você busca em sua próxima posição.
         </p>
       </div>
 
-      <Card className="rounded-none border-gray-700">
+      <Card className="bg-card border border-border">
         <CardContent className="pt-6 space-y-4">
           <div className="space-y-2">
-            <Label htmlFor="objective" className="font-medium">
+            <Label htmlFor="objective" className="text-foreground">
               Objetivo <span className="text-destructive">*</span>
             </Label>
             <Textarea
@@ -74,9 +74,9 @@ const ObjectiveForm: React.FC<ObjectiveFormProps> = ({ objective, onChange }) =>
               value={objective}
               onChange={(e) => handleChange(e.target.value)}
               placeholder="Ex: Desenvolvedor React com 2 anos de experiência buscando posição que me permita aprimorar minhas habilidades em frontend e contribuir para projetos inovadores."
-              className={`min-h-[120px] rounded-sm border-gray-600 ${error ? 'border-destructive' : ''}`}
+              className={`min-h-[120px] mt-1 bg-input border-border text-foreground ${error ? 'border-destructive' : ''}`}
             />
-            {error && <p className="text-xs text-destructive">{error}</p>}
+            {error && <p className="text-sm text-destructive mt-1">{error}</p>}
           </div>
 
           <div>
@@ -86,26 +86,26 @@ const ObjectiveForm: React.FC<ObjectiveFormProps> = ({ objective, onChange }) =>
                   type="button" 
                   variant="outline" 
                   size="sm"
-                  className="text-sm flex items-center gap-2 rounded-sm border-gray-600 hover:bg-gray-700"
+                  className="text-sm flex items-center gap-2 text-muted-foreground hover:text-foreground hover:bg-accent/50"
                 >
                   <Lightbulb className="h-4 w-4" />
                   Ver exemplos
                 </Button>
               </PopoverTrigger>
-              <PopoverContent className="w-80 p-0 rounded-sm bg-gray-800 border-gray-700 text-white">
-                <div className="bg-gray-900 p-3 border-b border-gray-700">
+              <PopoverContent className="w-80 p-0 border border-border bg-popover text-popover-foreground">
+                <div className="bg-muted p-3 border-b border-border">
                   <h4 className="font-medium text-sm">Exemplos de Objetivos Profissionais</h4>
                 </div>
                 <div className="p-3 space-y-3 text-sm max-h-[300px] overflow-y-auto">
                   {suggestions.map((suggestion, index) => (
-                    <div key={index} className="p-3 bg-gray-900 border border-gray-700 rounded-sm">
+                    <div key={index} className="p-3 border border-border bg-background rounded-md">
                       <p>{suggestion}</p>
                       <Button
                         type="button"
                         variant="ghost"
                         size="sm"
                         onClick={() => applyExample(suggestion)}
-                        className="mt-2 text-xs rounded-sm hover:bg-gray-700"
+                        className="mt-2 text-xs text-primary hover:bg-accent/50 hover:text-primary"
                       >
                         Usar este exemplo
                       </Button>
@@ -117,10 +117,6 @@ const ObjectiveForm: React.FC<ObjectiveFormProps> = ({ objective, onChange }) =>
           </div>
         </CardContent>
       </Card>
-
-      <div className="text-sm text-muted-foreground">
-        <p>Mantenha seu objetivo conciso e focado em como você pode agregar valor para a empresa.</p>
-      </div>
     </div>
   );
 };

@@ -257,7 +257,7 @@ export const generateResumePDF = async (data: ResumeData): Promise<void> => {
   // Adicionar seção de habilidades
   if (data.skills.filter(Boolean).length > 0) {
     // Verificar se precisamos de uma nova página
-    if (yPos > doc.internal.pageSize.height - margin - 30) {
+    if (yPos > doc.internal.pageSize.height - margin - 20) {
       doc.addPage();
       yPos = margin;
     }
@@ -274,21 +274,15 @@ export const generateResumePDF = async (data: ResumeData): Promise<void> => {
     
     const validSkills = data.skills.filter(Boolean);
     
-    // Usar uma coluna única com bullets para melhor compatibilidade ATS
+    // Remover loop e juntar habilidades em uma string
     doc.setFont(contentFont, 'normal');
     doc.setFontSize(contentSize);
+
+    const skillsString = validSkills.join('  •  '); // Junta com um separador
+    const splitSkills = doc.splitTextToSize(skillsString, doc.internal.pageSize.width - (2 * margin));
     
-    for (let i = 0; i < validSkills.length; i++) {
-      // Verificar se precisamos de uma nova página
-      if (yPos > doc.internal.pageSize.height - margin) {
-        doc.addPage();
-        yPos = margin;
-      }
-      
-      const skill = validSkills[i];
-      doc.text(`• ${skill}`, margin, yPos);
-      yPos += 5;
-    }
+    doc.text(splitSkills, margin, yPos);
+    yPos += (splitSkills.length * 5); // Ajusta yPos baseado nas linhas geradas
     
     yPos += 5; // Espaço extra após a seção
   }

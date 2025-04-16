@@ -72,107 +72,76 @@ const PersonalInfoForm: React.FC<PersonalInfoFormProps> = ({ data, onChange }) =
   }, [data]);
 
   return (
-    <div className="space-y-6 animate-fade-in">
-      <div className="space-y-2">
-        <h2 className="text-2xl font-semibold tracking-tight">Informações Pessoais</h2>
-        <p className="text-muted-foreground">
-          Forneça suas informações de contato para os recrutadores.
-        </p>
-      </div>
+    <div className="space-y-6">
+      <h2 className="text-2xl font-semibold text-foreground">Informações Pessoais</h2>
+      <p className="text-muted-foreground">Preencha seus dados básicos.</p>
 
-      <Card className="rounded-none border-gray-700">
-        <CardContent className="pt-6">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <div className="space-y-2">
-              <Label htmlFor="name" className="font-medium">
-                Nome Completo <span className="text-destructive">*</span>
-              </Label>
-              <Input
-                id="name"
-                value={data.name}
-                onChange={(e) => handleChange('name', e.target.value)}
-                placeholder="Ex: Maria Silva"
-                className={`rounded-sm border-gray-600 ${errors.name ? 'border-destructive' : ''}`}
-              />
-              {errors.name && <p className="text-xs text-destructive">{errors.name}</p>}
-            </div>
-
-            <div className="space-y-2">
-              <Label htmlFor="email" className="font-medium">
-                Email <span className="text-destructive">*</span>
-              </Label>
-              <Input
-                id="email"
-                type="email"
-                value={data.email}
-                onChange={(e) => handleChange('email', e.target.value)}
-                placeholder="Ex: maria.silva@email.com"
-                className={`rounded-sm border-gray-600 ${errors.email ? 'border-destructive' : ''}`}
-              />
-              {errors.email && <p className="text-xs text-destructive">{errors.email}</p>}
-            </div>
-
-            <div className="space-y-2">
-              <Label htmlFor="phone" className="font-medium">
-                Telefone <span className="text-destructive">*</span>
-              </Label>
-              <Input
-                id="phone"
-                value={data.phone}
-                onChange={(e) => handleChange('phone', e.target.value)}
-                placeholder="Ex: (11) 98765-4321"
-                className={`rounded-sm border-gray-600 ${errors.phone ? 'border-destructive' : ''}`}
-              />
-              {errors.phone && <p className="text-xs text-destructive">{errors.phone}</p>}
-            </div>
-
-            <div className="space-y-2">
-              <Label htmlFor="location" className="font-medium">
-                Localização <span className="text-destructive">*</span>
-              </Label>
-              <Input
-                id="location"
-                value={data.location}
-                onChange={(e) => handleChange('location', e.target.value)}
-                placeholder="Ex: São Paulo, SP"
-                className={`rounded-sm border-gray-600 ${errors.location ? 'border-destructive' : ''}`}
-              />
-              {errors.location && <p className="text-xs text-destructive">{errors.location}</p>}
-            </div>
-
-            <div className="space-y-2">
-              <Label htmlFor="linkedin" className="font-medium">
-                LinkedIn (opcional)
-              </Label>
-              <Input
-                id="linkedin"
-                value={data.linkedin}
-                onChange={(e) => handleChange('linkedin', e.target.value)}
-                placeholder="Ex: linkedin.com/in/mariasilva"
-                className={`rounded-sm border-gray-600 ${errors.linkedin ? 'border-destructive' : ''}`}
-              />
-              {errors.linkedin && <p className="text-xs text-destructive">{errors.linkedin}</p>}
-            </div>
-
-            <div className="space-y-2">
-              <Label htmlFor="portfolio" className="font-medium">
-                Site ou Portfólio (opcional)
-              </Label>
-              <Input
-                id="portfolio"
-                value={data.portfolio}
-                onChange={(e) => handleChange('portfolio', e.target.value)}
-                placeholder="Ex: mariasilva.com.br"
-                className={`rounded-sm border-gray-600 ${errors.portfolio ? 'border-destructive' : ''}`}
-              />
-              {errors.portfolio && <p className="text-xs text-destructive">{errors.portfolio}</p>}
-            </div>
-          </div>
-        </CardContent>
-      </Card>
-
-      <div className="text-sm text-muted-foreground">
-        <p>Os campos marcados com <span className="text-destructive">*</span> são obrigatórios.</p>
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <div>
+          <Label htmlFor="fullName" className="text-foreground">Nome Completo*</Label>
+          <Input
+            id="fullName"
+            value={data.name}
+            onChange={(e) => handleChange('name', e.target.value)}
+            placeholder="Seu nome completo"
+            className="mt-1 bg-input border-border text-foreground"
+            required
+          />
+        </div>
+        <div>
+          <Label htmlFor="email" className="text-foreground">Email*</Label>
+          <Input
+            id="email"
+            type="email"
+            value={data.email}
+            onChange={(e) => handleChange('email', e.target.value)}
+            placeholder="seu.email@exemplo.com"
+            className="mt-1 bg-input border-border text-foreground"
+            required
+          />
+        </div>
+        <div>
+          <Label htmlFor="phone" className="text-foreground">Telefone*</Label>
+          <Input
+            id="phone"
+            value={data.phone}
+            onChange={(e) => handleChange('phone', e.target.value)}
+            placeholder="(XX) XXXXX-XXXX"
+            className="mt-1 bg-input border-border text-foreground"
+            required
+          />
+        </div>
+        <div>
+          <Label htmlFor="location" className="text-foreground">Localização*</Label>
+          <Input
+            id="location"
+            value={data.location}
+            onChange={(e) => handleChange('location', e.target.value)}
+            placeholder="Cidade, Estado"
+            className="mt-1 bg-input border-border text-foreground"
+            required
+          />
+        </div>
+        <div>
+          <Label htmlFor="linkedin" className="text-foreground">LinkedIn</Label>
+          <Input
+            id="linkedin"
+            value={data.linkedin}
+            onChange={(e) => handleChange('linkedin', e.target.value)}
+            placeholder="linkedin.com/in/seu-perfil"
+            className="mt-1 bg-input border-border text-foreground"
+          />
+        </div>
+        <div>
+          <Label htmlFor="website" className="text-foreground">Website/Portfólio</Label>
+          <Input
+            id="website"
+            value={data.portfolio}
+            onChange={(e) => handleChange('portfolio', e.target.value)}
+            placeholder="seusite.com"
+            className="mt-1 bg-input border-border text-foreground"
+          />
+        </div>
       </div>
     </div>
   );

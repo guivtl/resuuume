@@ -33,7 +33,7 @@ const ResumeDropdown: React.FC<ResumeDropdownProps> = ({ onSave, onLoad }) => {
           <Save className="h-4 w-4 mr-2" /> Salvar atual
         </DropdownMenuItem>
         <DropdownMenuItem 
-          className="cursor-pointer"
+          className="cursor-pointer hover:bg-accent focus:bg-accent"
           onClick={onLoad}
         >
           <List className="h-4 w-4 mr-2" /> Carregar salvo

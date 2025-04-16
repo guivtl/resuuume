@@ -41,12 +41,45 @@
     /* ... */
   }
 
-  /* Remove or comment out the previous .dark theme */
-  /*
+  /* Dark Theme Variables */
   .dark {
-    ... previous dark theme variables ...
+    /* Fundo quase preto */
+    --background: 240 5% 4%; /* #09090B - Zinc 950 */ 
+    --foreground: 210 40% 98%; /* #FAFCFE - Almost White (Mantido) */
+
+    /* Card/Input/Popover mais claros */
+    --card: 240 6% 10%;     /* #18181B - Zinc 900 */
+    --card-foreground: 210 40% 98%; /* #FAFCFE (Mantido) */
+
+    --popover: 240 6% 10%;     /* #18181B - Zinc 900 */
+    --popover-foreground: 210 40% 98%; /* #FAFCFE (Mantido) */
+
+    /* Primário agora é VERDE no modo escuro */
+    --primary: 160 70% 35%; /* #117F73 - Darker Teal/Green */ 
+    --primary-foreground: 210 40% 98%; /* #FAFCFE (Mantido) */
+
+    /* Secundário agora é AZUL no modo escuro */
+    --secondary: 217 91% 60%;  /* #3B82F6 - Brighter Blue */
+    --secondary-foreground: 210 40% 98%; /* #FAFCFE (Mantido) */
+
+    /* Muted/Accent/Border - Baseados em Zinc */
+    --muted: 240 5% 16%;    /* #27272A - Zinc 800 */
+    --muted-foreground: 240 5% 64%; /* #A1A1AA - Zinc 400 */
+
+    --accent: 240 5% 22%;    /* #3F3F46 - Zinc 700 (Hover) */
+    --accent-foreground: 210 40% 98%; /* #FAFCFE (Mantido) */
+
+    /* Destructive (Vermelho) - Mantido */
+    --destructive: 0 72% 51%; /* #DC2626 - Slightly different Red */
+    --destructive-foreground: 210 40% 98%; /* #FAFCFE */
+
+    /* Border/Input - Ajustados */
+    --border: 240 5% 16%;    /* #27272A - Zinc 800 */
+    --input: 240 6% 10%;     /* #18181B - Zinc 900 (Igual Card) */
+    
+    /* Ring agora usa a cor primária (Verde no modo escuro) */
+    --ring: 160 70% 35%; /* #117F73 - Darker Teal/Green */
   }
-  */
 
   * {
     @apply border-border;
