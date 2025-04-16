@@ -4,11 +4,11 @@ import {
   DialogContent,
   DialogHeader,
   DialogTitle,
-  DialogDescription,
   DialogFooter,
+  DialogDescription,
 } from '@/components/ui/dialog';
 import { Button } from '@/components/ui/button';
-import { Linkedin, Twitter, Instagram, ExternalLink } from 'lucide-react'; // Usando Twitter como ícone para X
+import { Linkedin, Github, Instagram, Globe, Download } from 'lucide-react';
 
 interface PreDownloadModalProps {
   isOpen: boolean;
@@ -16,70 +16,80 @@ interface PreDownloadModalProps {
   onDownloadStart: () => void;
 }
 
+// Simplified social links data
+const socialLinks = [
+  { name: 'LinkedIn', url: 'https://linkedin.com/in/guivtl', icon: Linkedin, colorClasses: 'text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300' },
+  { name: 'GitHub', url: 'https://github.com/guivtl', icon: Github, colorClasses: 'text-foreground hover:text-muted-foreground' },
+  { name: 'Instagram', url: 'https://instagram.com/guivtl', icon: Instagram, colorClasses: 'text-pink-600 dark:text-pink-400 hover:text-pink-700 dark:hover:text-pink-300' },
+  { name: 'Website', url: 'https://guivital.com', icon: Globe, colorClasses: 'text-teal-600 dark:text-teal-400 hover:text-teal-700 dark:hover:text-teal-300', highlighted: true },
+];
+
 const PreDownloadModal: React.FC<PreDownloadModalProps> = ({ isOpen, onClose, onDownloadStart }) => {
   const [countdown, setCountdown] = useState(5);
 
   useEffect(() => {
     if (!isOpen) {
-      setCountdown(5); // Reset countdown quando o modal fecha
+      setCountdown(5);
       return;
     }
-
     if (countdown <= 0) {
       onDownloadStart();
       onClose();
       return;
     }
-
-    const timer = setInterval(() => {
-      setCountdown((prevCount) => prevCount - 1);
-    }, 1000);
-
-    // Limpa o timer quando o componente desmonta ou o modal fecha
+    const timer = setInterval(() => setCountdown((c) => c - 1), 1000);
     return () => clearInterval(timer);
-
   }, [isOpen, countdown, onClose, onDownloadStart]);
+
+  const handleDownloadNow = () => {
+    onDownloadStart();
+    onClose();
+  };
 
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
-      <DialogContent className="bg-gray-900 text-white border-gray-700 rounded-none sm:max-w-[425px]">
-        <DialogHeader>
-          <DialogTitle className="text-center text-xl font-semibold">Antes de baixar...</DialogTitle>
-          <DialogDescription className="text-center text-gray-400 pt-2">
-            Se você gostou deste projeto, considere me seguir nas redes sociais!
-          </DialogDescription>
+      <DialogContent className="bg-popover text-popover-foreground border-border rounded-lg sm:max-w-sm p-6">
+        {/* Header */}
+        <DialogHeader className="mb-4">
+          <DialogTitle className="text-center text-2xl font-semibold text-foreground">Quase lá!</DialogTitle>
         </DialogHeader>
-        <div className="py-6 space-y-4">
-          <div className="flex justify-center gap-4">
-            <a href="https://linkedin.com/in/guivtl" target="_blank" rel="noopener noreferrer">
-              <Button variant="outline" size="icon" className="rounded-sm border-gray-600 hover:bg-gray-700">
-                <Linkedin className="h-5 w-5" />
-              </Button>
-            </a>
-            <a href="https://x.com/guivtl" target="_blank" rel="noopener noreferrer">
-              <Button variant="outline" size="icon" className="rounded-sm border-gray-600 hover:bg-gray-700">
-                <Twitter className="h-5 w-5" />
-              </Button>
-            </a>
-            <a href="https://instagram.com/guivtl" target="_blank" rel="noopener noreferrer">
-              <Button variant="outline" size="icon" className="rounded-sm border-gray-600 hover:bg-gray-700">
-                <Instagram className="h-5 w-5" />
-              </Button>
-            </a>
-          </div>
-          <p className="text-center text-gray-500 text-sm">
-            Obrigado pelo apoio! 😊
-          </p>
+
+        {/* Countdown */}
+        <div className="text-center my-6">
+          <p className="text-sm text-muted-foreground mb-1">Seu download começa em</p>
+          <p className="text-7xl font-bold text-primary">{countdown}</p>
         </div>
-        <DialogFooter className="sm:justify-center">
-          <div className="text-center">
-            <p className="text-lg font-medium text-gray-300">
-              Seu download começará em...
-            </p>
-            <p className="text-6xl font-bold text-yellow-400"> {/* Usando amarelo como destaque */}
-              {countdown}
-            </p>
+
+        {/* Social Prompt & Icons */}
+        <div className="text-center space-y-3 my-6">
+          <p className="text-sm text-muted-foreground">
+            Gostou da ferramenta? Conecte-se comigo:
+          </p>
+          <div className="flex justify-center items-center gap-3">
+            {socialLinks.map((link) => (
+              <Button
+                key={link.name}
+                variant={link.highlighted ? 'outline' : 'ghost'}
+                size="icon"
+                asChild
+                className={`rounded-full ${link.highlighted ? 'border-primary/50 hover:bg-primary/10' : 'hover:bg-accent'}`}
+              >
+                <a href={link.url} target="_blank" rel="noopener noreferrer" aria-label={link.name} className={`${link.colorClasses} transition-colors`}>
+                  <link.icon className="h-5 w-5" /> {/* Slightly smaller icons for cleaner look */}
+                </a>
+              </Button>
+            ))}
           </div>
+        </div>
+
+        {/* Footer Button */}
+        <DialogFooter className="mt-6 sm:justify-center">
+          <Button
+            onClick={handleDownloadNow}
+            className="w-full sm:w-auto bg-primary text-primary-foreground hover:bg-primary/90"
+          >
+            <Download className="mr-2 h-4 w-4" /> Baixar Currículo Agora
+          </Button>
         </DialogFooter>
       </DialogContent>
     </Dialog>
