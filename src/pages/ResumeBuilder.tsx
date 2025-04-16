@@ -373,12 +373,12 @@ const ResumeBuilder = () => {
         
         <Tabs value={viewMode} onValueChange={(value) => setViewMode(value as 'edit' | 'preview')} className="w-full">
           <div className="flex justify-center mb-6">
-            <TabsList className="bg-accent border border-border rounded-sm">
-              <TabsTrigger value="edit" className="flex items-center gap-2 rounded-sm text-muted-foreground data-[state=active]:bg-primary data-[state=active]:text-primary-foreground">
+            <TabsList className="border border-border rounded-sm p-1">
+              <TabsTrigger value="edit" className="flex items-center gap-2 rounded-sm px-3 py-1.5 text-sm font-medium text-muted-foreground data-[state=active]:bg-primary data-[state=active]:text-primary-foreground data-[state=active]:shadow-sm">
                 <ArrowRight className="h-4 w-4" />
                 Editar
               </TabsTrigger>
-              <TabsTrigger value="preview" className="flex items-center gap-2 rounded-sm text-muted-foreground data-[state=active]:bg-primary data-[state=active]:text-primary-foreground">
+              <TabsTrigger value="preview" className="flex items-center gap-2 rounded-sm px-3 py-1.5 text-sm font-medium text-muted-foreground data-[state=active]:bg-primary data-[state=active]:text-primary-foreground data-[state=active]:shadow-sm">
                 <Eye className="h-4 w-4" />
                 Visualizar
               </TabsTrigger>
@@ -535,7 +535,7 @@ const ResumeBuilder = () => {
                   {savedResumes.map((resume) => (
                     <div
                       key={resume.id}
-                      className="flex justify-between items-center bg-secondary p-3 rounded-md hover:bg-accent transition-colors"
+                      className="flex justify-between items-center bg-muted p-3 rounded-md hover:bg-accent hover:text-accent-foreground transition-colors"
                     >
                       <div className="flex-1">
                         <h3 className="font-medium text-foreground">{resume.name}</h3>
@@ -549,7 +549,7 @@ const ResumeBuilder = () => {
                           variant="ghost"
                           size="sm"
                           onClick={() => handleLoadResume(resume.id)}
-                          className="hover:bg-accent/50 text-foreground"
+                          className="hover:bg-accent/80 text-foreground"
                         >
                           Carregar
                         </Button>

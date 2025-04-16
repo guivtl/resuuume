@@ -255,254 +255,183 @@ const ExperienceForm: React.FC<ExperienceFormProps> = ({ experiences, onChange }
   };
 
   return (
-    <div className="space-y-6 animate-fade-in text-gray-100">
-      <div className="space-y-2">
-        <h2 className="text-2xl font-semibold tracking-tight">Experiência Profissional</h2>
-        <p className="text-muted-foreground">
-          Adicione suas experiências profissionais mais relevantes.
-        </p>
-      </div>
-
-      <div className="space-y-4">
-        {experiences.map((experience, index) => (
-          <Card key={experience.id} className="relative overflow-hidden rounded-none border-[#fab73d]/50 bg-[#204c39]">
+    <div className="space-y-6">
+      <h2 className="text-2xl font-semibold text-foreground">Experiência Profissional</h2>
+      <p className="text-muted-foreground">Adicione suas experiências profissionais mais relevantes.</p>
+      
+      {experiences.map((exp, index) => {
+        const isCollapsed = collapsedCards[exp.id];
+        return (
+          <Card key={exp.id} className="bg-card border border-border overflow-hidden">
             <div 
-              className="collapsible-card-header bg-[#2a5c4a]"
-              onClick={() => toggleCardCollapse(experience.id)}
+              className="flex justify-between items-center p-4 cursor-pointer hover:bg-muted/50" 
+              onClick={() => toggleCardCollapse(exp.id)}
             >
+              <h3 className="text-lg font-medium text-foreground">
+                {exp.position || `Experiência ${index + 1}`}
+                {exp.company ? ` at ${exp.company}` : ''}
+              </h3>
               <div className="flex items-center gap-2">
-                {collapsedCards[experience.id] ? (
-                  <PlusCircle className="h-4 w-4 text-[#fab73d]" />
-                ) : (
-                  <MinusCircle className="h-4 w-4 text-[#fab73d]" />
-                )}
-                <span className="font-medium text-white">
-                  {experience.company ? experience.company : `Experiência ${index + 1}`}
-                  {experience.position && ` - ${experience.position}`}
-                </span>
-              </div>
-              <div className="flex items-center gap-2">
-                {experiences.length > 1 && (
-                  <Button
-                    type="button"
-                    variant="ghost"
-                    size="icon"
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      removeExperience(experience.id);
-                    }}
-                    title="Remover experiência"
-                    className="text-gray-400 hover:text-red-500"
-                  >
-                    <Trash2 className="h-4 w-4" />
-                  </Button>
-                )}
-                {collapsedCards[experience.id] ? (
-                  <ChevronDown className="h-4 w-4" />
-                ) : (
-                  <ChevronUp className="h-4 w-4" />
-                )}
+                <Button variant="ghost" size="icon" onClick={(e) => { e.stopPropagation(); removeExperience(exp.id); }}>
+                  <Trash2 className="h-4 w-4 text-destructive" />
+                </Button>
+                {isCollapsed ? <ChevronDown className="h-5 w-5 text-muted-foreground" /> : <ChevronUp className="h-5 w-5 text-muted-foreground" />}
               </div>
             </div>
-            
-            <div className={`collapsible-card-content ${collapsedCards[experience.id] ? 'collapsed' : 'expanded'}`}>
-              <CardContent className="pt-6 grid grid-cols-1 md:grid-cols-2 gap-6">
-                <div className="space-y-2">
-                  <Label htmlFor={`company-${experience.id}`} className="font-medium text-gray-200">
-                    Empresa <span className="text-destructive">*</span>
-                  </Label>
+
+            <CardContent className={`pt-4 px-4 pb-6 border-t border-border ${isCollapsed ? 'hidden' : 'block'}`}>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+                <div>
+                  <Label htmlFor={`company-${exp.id}`} className="text-foreground">Empresa*</Label>
                   <Input
-                    id={`company-${experience.id}`}
-                    value={experience.company}
-                    onChange={(e) => handleChange(experience.id, 'company', e.target.value)}
+                    id={`company-${exp.id}`}
+                    value={exp.company}
+                    onChange={(e) => handleChange(exp.id, 'company', e.target.value)}
                     placeholder="Ex: Empresa ABC Ltda."
-                    className={`rounded-sm bg-gray-900 border-gray-700 focus:border-[#fab73d] focus:ring-[#fab73d] text-white ${errors[experience.id]?.company ? 'border-destructive' : ''}`}
+                    className="mt-1 bg-input border-border text-foreground"
                   />
-                  {errors[experience.id]?.company && (
-                    <p className="text-xs text-destructive">{errors[experience.id].company}</p>
-                  )}
+                  {errors[exp.id]?.company && <p className="text-sm text-destructive mt-1">{errors[exp.id].company}</p>}
                 </div>
-
-                <div className="space-y-2">
-                  <Label htmlFor={`position-${experience.id}`} className="font-medium text-gray-200">
-                    Cargo <span className="text-destructive">*</span>
-                  </Label>
+                <div>
+                  <Label htmlFor={`position-${exp.id}`} className="text-foreground">Cargo*</Label>
                   <Input
-                    id={`position-${experience.id}`}
-                    value={experience.position}
-                    onChange={(e) => handleChange(experience.id, 'position', e.target.value)}
+                    id={`position-${exp.id}`}
+                    value={exp.position}
+                    onChange={(e) => handleChange(exp.id, 'position', e.target.value)}
                     placeholder="Ex: Gerente de Marketing"
-                    className={`rounded-sm bg-gray-900 border-gray-700 focus:border-[#fab73d] focus:ring-[#fab73d] text-white ${errors[experience.id]?.position ? 'border-destructive' : ''}`}
+                    className="mt-1 bg-input border-border text-foreground"
                   />
-                  {errors[experience.id]?.position && (
-                    <p className="text-xs text-destructive">{errors[experience.id].position}</p>
-                  )}
+                  {errors[exp.id]?.position && <p className="text-sm text-destructive mt-1">{errors[exp.id].position}</p>}
                 </div>
-
-                <div className="space-y-2">
-                  <Label htmlFor={`location-${experience.id}`} className="font-medium text-gray-200">
-                    Localização
-                  </Label>
+                <div>
+                  <Label htmlFor={`location-${exp.id}`} className="text-foreground">Localização</Label>
                   <Input
-                    id={`location-${experience.id}`}
-                    value={experience.location}
-                    onChange={(e) => handleChange(experience.id, 'location', e.target.value)}
+                    id={`location-${exp.id}`}
+                    value={exp.location}
+                    onChange={(e) => handleChange(exp.id, 'location', e.target.value)}
                     placeholder="Ex: São Paulo, SP"
-                    className={`rounded-sm bg-gray-900 border-gray-700 focus:border-[#fab73d] focus:ring-[#fab73d] text-white ${errors[experience.id]?.location ? 'border-destructive' : ''}`}
+                    className="mt-1 bg-input border-border text-foreground"
                   />
                 </div>
-
-                <div className="md:col-span-2 grid grid-cols-2 gap-4">
-                  <div className="space-y-2">
-                    <Label htmlFor={`startDate-${experience.id}`} className="font-medium text-gray-200">
-                      Data de Início <span className="text-destructive">*</span>
-                    </Label>
-                    <Input
-                      id={`startDate-${experience.id}`}
-                      type="text"
-                      value={rawDateInputs[experience.id]?.startDate ?? ''}
-                      onChange={(e) => handleRawDateChange(experience.id, 'startDate', e.target.value)}
-                      onBlur={() => handleDateBlur(experience.id, 'startDate')}
-                      placeholder="MM/YYYY"
-                      maxLength={7}
-                      className={`rounded-sm bg-gray-900 border-gray-700 focus:border-[#fab73d] focus:ring-[#fab73d] text-white ${errors[experience.id]?.startDate ? 'border-destructive' : ''}`}
-                    />
-                    {errors[experience.id]?.startDate && (
-                      <p className="text-xs text-destructive">{errors[experience.id].startDate}</p>
-                    )}
-                  </div>
-
-                  <div className="space-y-2">
-                    <Label htmlFor={`endDate-${experience.id}`} className="font-medium text-gray-200">
-                      Data de Término {!experience.current && <span className="text-destructive">*</span>}
-                    </Label>
-                    <Input
-                      id={`endDate-${experience.id}`}
-                      type="text"
-                      value={rawDateInputs[experience.id]?.endDate ?? ''}
-                      onChange={(e) => handleRawDateChange(experience.id, 'endDate', e.target.value)}
-                      onBlur={() => handleDateBlur(experience.id, 'endDate')}
-                      placeholder="MM/YYYY"
-                      maxLength={7}
-                      disabled={experience.current}
-                      className={`rounded-sm bg-gray-900 border-gray-700 focus:border-[#fab73d] focus:ring-[#fab73d] text-white ${errors[experience.id]?.endDate ? 'border-destructive' : 'disabled:opacity-50'}`}
-                    />
-                    {errors[experience.id]?.endDate && (
-                      <p className="text-xs text-destructive">{errors[experience.id].endDate}</p>
-                    )}
-                  </div>
-                </div>
-
-                <div className="flex items-center space-x-2">
-                  <Switch
-                    id={`current-${experience.id}`}
-                    checked={experience.current}
-                    onCheckedChange={(checked) => handleChange(experience.id, 'current', checked)}
+                <div></div> 
+                <div>
+                  <Label htmlFor={`startDate-${exp.id}`} className="text-foreground">Data de Início*</Label>
+                  <Input
+                    id={`startDate-${exp.id}`}
+                    type="text"
+                    value={rawDateInputs[exp.id]?.startDate || ''}
+                    onChange={(e) => handleRawDateChange(exp.id, 'startDate', e.target.value)}
+                    onBlur={() => handleDateBlur(exp.id, 'startDate')}
+                    placeholder="MM/YYYY"
+                    maxLength={7}
+                    className="mt-1 bg-input border-border text-foreground"
                   />
-                  <Label htmlFor={`current-${experience.id}`} className="font-medium cursor-pointer text-gray-200">
-                    Emprego Atual
-                  </Label>
+                  {errors[exp.id]?.startDate && <p className="text-sm text-destructive mt-1">{errors[exp.id].startDate}</p>}
                 </div>
-
-                <div className="md:col-span-2 space-y-2">
-                  <div className="flex items-center justify-between">
-                    <Label htmlFor={`description-${experience.id}`} className="font-medium text-gray-200">
-                      Descrição da Função
-                    </Label>
-                    <Popover>
-                      <PopoverTrigger asChild>
-                        <Button
-                          type="button"
-                          variant="outline"
-                          size="sm"
-                          className="text-xs flex items-center gap-1 rounded-sm border-[#fab73d]/80 text-gray-300 hover:bg-[#9ec378]/20"
-                        >
-                          <Lightbulb className="h-3 w-3" />
-                          Sugestões
-                        </Button>
-                      </PopoverTrigger>
-                      <PopoverContent className="p-0 w-96">
-                        <div className="p-3 border-b bg-muted/50">
-                          <p className="font-medium text-sm">Sugestões para descrição:</p>
-                        </div>
-                        <div className="p-2 max-h-[250px] overflow-y-auto">
-                          <div className="space-y-2">
-                            {JOB_DESCRIPTION_SUGGESTIONS.map((suggestion, idx) => (
-                              <div 
-                                key={idx} 
-                                className="p-2 bg-background border rounded hover:border-primary cursor-pointer"
-                                onClick={() => applySuggestion(experience.id, suggestion)}
-                              >
-                                <p className="text-sm">{suggestion}</p>
-                              </div>
-                            ))}
-                          </div>
-                        </div>
-                      </PopoverContent>
-                    </Popover>
-                  </div>
-                  <Textarea
-                    id={`description-${experience.id}`}
-                    value={experience.description}
-                    onChange={(e) => handleChange(experience.id, 'description', e.target.value)}
-                    placeholder="Descreva suas responsabilidades e realizações neste cargo"
-                    className="min-h-[100px] rounded-sm bg-gray-900 border-gray-700 focus:border-[#fab73d] focus:ring-[#fab73d] text-white"
+                <div>
+                  <Label htmlFor={`endDate-${exp.id}`} className="text-foreground">Data de Término*</Label>
+                  <Input
+                    id={`endDate-${exp.id}`}
+                    type="text"
+                    value={exp.current ? '' : (rawDateInputs[exp.id]?.endDate || '')}
+                    onChange={(e) => handleRawDateChange(exp.id, 'endDate', e.target.value)}
+                    onBlur={() => handleDateBlur(exp.id, 'endDate')}
+                    placeholder="MM/YYYY"
+                    disabled={exp.current}
+                    maxLength={7}
+                    className={`mt-1 bg-input border-border text-foreground ${exp.current ? 'disabled:opacity-50 disabled:cursor-not-allowed' : ''}`}
                   />
+                   {errors[exp.id]?.endDate && <p className="text-sm text-destructive mt-1">{errors[exp.id].endDate}</p>}
                 </div>
+              </div>
 
-                <div className="md:col-span-2 space-y-3">
-                  <Label className="font-medium text-gray-200">Conquistas e Realizações</Label>
-                  
-                  {experience.achievements.map((achievement, achievementIndex) => (
-                    <div key={achievementIndex} className="flex gap-2 items-start">
-                      <Input
-                        value={achievement}
-                        onChange={(e) => handleAchievementChange(experience.id, achievementIndex, e.target.value)}
-                        placeholder="Ex: Aumentei as vendas em 30% no primeiro trimestre"
-                        className="flex-1 rounded-sm bg-gray-900 border-gray-700 focus:border-[#fab73d] focus:ring-[#fab73d] text-white"
-                      />
-                      <Button
-                        type="button"
-                        variant="ghost"
-                        size="icon"
-                        onClick={() => removeAchievement(experience.id, achievementIndex)}
-                        disabled={experience.achievements.length === 1}
-                        title="Remover conquista"
-                        className="text-gray-400 hover:text-red-500"
-                      >
-                        <Trash2 className="h-4 w-4" />
-                      </Button>
+              <div className="flex items-center space-x-2 mb-4">
+                <Switch 
+                  id={`current-${exp.id}`} 
+                  checked={exp.current}
+                  onCheckedChange={(checked) => handleChange(exp.id, 'current', checked)}
+                  className="data-[state=checked]:bg-primary data-[state=unchecked]:bg-input"
+                />
+                <Label htmlFor={`current-${exp.id}`} className="text-foreground">Emprego Atual</Label>
+              </div>
+
+              <div className="mb-4">
+                <Label htmlFor={`description-${exp.id}`} className="text-foreground">Descrição da Função</Label>
+                <Textarea
+                  id={`description-${exp.id}`}
+                  value={exp.description}
+                  onChange={(e) => handleChange(exp.id, 'description', e.target.value)}
+                  placeholder="Descreva suas principais responsabilidades e realizações neste cargo."
+                  rows={4}
+                  className="mt-1 bg-input border-border text-foreground"
+                />
+                <Popover>
+                  <PopoverTrigger asChild>
+                    <Button variant="outline" size="sm" className="mt-2 text-xs text-muted-foreground">
+                      <Lightbulb className="mr-1 h-3 w-3" /> Sugestões
+                    </Button>
+                  </PopoverTrigger>
+                  <PopoverContent className="w-80 bg-popover border-border">
+                    <div className="grid gap-4">
+                      <div className="space-y-2">
+                        <h4 className="font-medium leading-none text-popover-foreground">Sugestões de Descrição</h4>
+                        <p className="text-sm text-muted-foreground">
+                          Clique para aplicar uma sugestão inicial.
+                        </p>
+                      </div>
+                      <div className="grid gap-2 max-h-48 overflow-y-auto">
+                        {JOB_DESCRIPTION_SUGGESTIONS.map((sugg, i) => (
+                          <Button 
+                            key={i} 
+                            variant="ghost" 
+                            size="sm"
+                            className="justify-start text-left h-auto whitespace-normal text-popover-foreground hover:bg-accent hover:text-accent-foreground"
+                            onClick={() => applySuggestion(exp.id, sugg)}
+                          >
+                            {sugg.length > 50 ? sugg.substring(0, 50) + '...' : sugg}
+                          </Button>
+                        ))}
+                      </div>
                     </div>
-                  ))}
-                  
-                  <Button
-                    type="button"
-                    variant="outline"
-                    size="sm"
-                    onClick={() => addAchievement(experience.id)}
-                    className="flex items-center gap-1 rounded-sm border-[#fab73d]/80 text-gray-300 hover:bg-[#9ec378]/20"
-                  >
-                    <Plus className="h-4 w-4" /> Adicionar conquista
-                  </Button>
-                </div>
-              </CardContent>
-            </div>
+                  </PopoverContent>
+                </Popover>
+              </div>
+
+              <div>
+                <Label className="text-foreground">Principais Realizações (Opcional)</Label>
+                <p className="text-xs text-muted-foreground mb-2">Liste conquistas quantificáveis ou projetos notáveis.</p>
+                {exp.achievements.map((achievement, achIndex) => (
+                  <div key={achIndex} className="flex items-center gap-2 mb-2">
+                    <Input
+                      type="text"
+                      value={achievement}
+                      onChange={(e) => handleAchievementChange(exp.id, achIndex, e.target.value)}
+                      placeholder={`Ex: Aumentei as vendas em 15% em 6 meses`}
+                      className="flex-grow bg-input border-border text-foreground"
+                    />
+                    <Button 
+                      variant="ghost" 
+                      size="icon" 
+                      onClick={() => removeAchievement(exp.id, achIndex)} 
+                      disabled={exp.achievements.length === 1}
+                      className="text-muted-foreground hover:text-destructive disabled:opacity-50"
+                    >
+                      <MinusCircle className="h-4 w-4" />
+                    </Button>
+                  </div>
+                ))}
+                <Button variant="outline" size="sm" onClick={() => addAchievement(exp.id)} className="mt-1 text-xs">
+                  <PlusCircle className="mr-1 h-3 w-3" /> Adicionar Realização
+                </Button>
+              </div>
+            </CardContent>
           </Card>
-        ))}
+        );
+      })}
 
-        <Button
-          type="button"
-          onClick={addExperience}
-          variant="outline"
-          className="w-full rounded-sm border-[#fab73d] text-[#fab73d] hover:bg-[#9ec378]/20 hover:text-white"
-        >
-          <Plus className="h-4 w-4 mr-2" /> Adicionar outra experiência
-        </Button>
-      </div>
-
-      <div className="text-sm text-muted-foreground">
-        <p>Inclua detalhes relevantes sobre cada posição, usando os campos de "Conquistas" para destacar resultados mensuráveis.</p>
-      </div>
+      <Button variant="secondary" onClick={addExperience} className="w-full">
+        <Plus className="mr-2 h-4 w-4" /> Adicionar Experiência
+      </Button>
     </div>
   );
 };
