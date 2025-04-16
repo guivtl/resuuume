@@ -1,10 +1,10 @@
-# resume
+# resuuume.
 
 Um gerador de currículos online.
 
 ## Sobre
 
-`resume` é uma aplicação web que permite aos usuários criar, editar e baixar currículos profissionais, com foco em um modelo otimizado para sistemas de rastreamento (ATS).
+`resuuume.` é uma aplicação web que permite aos usuários criar, editar e baixar currículos profissionais, com foco em um modelo otimizado para sistemas de rastreamento (ATS).
 
 ## Características
 
@@ -18,8 +18,8 @@ Um gerador de currículos online.
 
 ```bash
 # Clone este repositório
-git clone <URL_DO_SEU_REPOSITORIO>
-cd resume
+git clone https://github.com/guivtl/resuuume.git
+cd resuuume
 
 # Instalar dependências
 npm install
