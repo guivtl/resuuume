@@ -4,77 +4,49 @@
 
 @layer base {
   :root {
-    /* Light mode - pastel colors with green accents */
-    --background: 220 30% 95%;
-    --foreground: 220 20% 20%;
+    /* Black & Green Theme */
+    --background: 0 0% 0%; /* Black */
+    --foreground: 0 0% 100%; /* White */
 
-    --card: 0 0% 100%;
-    --card-foreground: 220 20% 20%;
+    --card: 0 0% 10%; /* Dark Grey */
+    --card-foreground: 0 0% 100%; /* White */
 
-    --popover: 0 0% 100%;
-    --popover-foreground: 220 20% 20%;
+    --popover: 0 0% 10%; /* Dark Grey */
+    --popover-foreground: 0 0% 100%; /* White */
 
-    --primary: 142 60% 45%;
-    --primary-foreground: 210 40% 98%;
+    --primary: 145 63% 49%; /* Green */
+    --primary-foreground: 0 0% 100%; /* White */
 
-    --secondary: 220 15% 90%;
-    --secondary-foreground: 220 20% 20%;
+    --secondary: 0 0% 15%; /* Dark Grey */
+    --secondary-foreground: 0 0% 90%; /* Light Grey */
 
-    --muted: 220 15% 90%;
-    --muted-foreground: 220 10% 40%;
+    --muted: 0 0% 15%; /* Dark Grey */
+    --muted-foreground: 0 0% 65%; /* Medium Grey */
 
-    --accent: 142 30% 85%;
-    --accent-foreground: 220 20% 20%;
+    --accent: 145 63% 40%; /* Darker Green */
+    --accent-foreground: 0 0% 100%; /* White */
 
-    --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 210 40% 98%;
+    --destructive: 0 72% 51%; /* Red */
+    --destructive-foreground: 0 0% 100%; /* White */
 
-    --border: 220 20% 85%;
-    --input: 220 20% 85%;
-    --ring: 142 76% 36%;
+    --border: 0 0% 20%; /* Dark Grey Border */
+    --input: 0 0% 20%; /* Dark Grey Input */
+    --ring: 145 63% 49%; /* Green Ring */
 
-    --radius: 0.75rem;
+    --radius: 0.5rem; /* Example radius - keep or adjust as needed */
 
-    --sidebar-background: 0 0% 98%;
-    --sidebar-foreground: 240 5.3% 26.1%;
-    --sidebar-primary: 240 5.9% 10%;
-    --sidebar-primary-foreground: 0 0% 98%;
-    --sidebar-accent: 240 4.8% 95.9%;
-    --sidebar-accent-foreground: 240 5.9% 10%;
-    --sidebar-border: 220 13% 91%;
-    --sidebar-ring: 217.2 91.2% 59.8%;
+    /* Remove sidebar variables if not used, or theme them similarly */
+    /* --sidebar-background: ...; */
+    /* --sidebar-foreground: ...; */
+    /* ... */
   }
 
+  /* Remove or comment out the previous .dark theme */
+  /*
   .dark {
-    /* Nord-Inspired Dark Theme */
-    --background: 220 15% 20%; /* Dark Desaturated Blue/Grey */
-    --foreground: 220 10% 90%; /* Light Grey */
-    
-    --card: 220 15% 25%; /* Slightly Lighter Desaturated Blue/Grey */
-    --card-foreground: 220 10% 90%; /* Light Grey */
-    
-    --popover: 220 15% 25%; /* Slightly Lighter Desaturated Blue/Grey */
-    --popover-foreground: 220 10% 90%; /* Light Grey */
-    
-    --primary: 180 30% 60%; /* Soft Teal/Aqua */
-    --primary-foreground: 220 10% 90%; /* Light Grey */
-    
-    --secondary: 220 15% 30%; /* Medium Desaturated Blue/Grey */
-    --secondary-foreground: 220 10% 90%; /* Light Grey */
-    
-    --muted: 220 15% 30%; /* Medium Desaturated Blue/Grey */
-    --muted-foreground: 220 10% 65%; /* Medium Desaturated Blue/Grey Text */
-    
-    --accent: 180 30% 50%; /* Darker Soft Teal/Aqua */
-    --accent-foreground: 220 10% 90%; /* Light Grey */
-    
-    --destructive: 0 60% 60%; /* Softer Red */
-    --destructive-foreground: 0 0% 98%; /* Almost White */
-    
-    --border: 220 10% 35%; /* Darker Blue/Grey Border */
-    --input: 220 10% 35%; /* Darker Blue/Grey Border */
-    --ring: 180 30% 60%; /* Soft Teal/Aqua for focus */
+    ... previous dark theme variables ...
   }
+  */
 
   * {
     @apply border-border;
@@ -83,7 +55,8 @@
   }
 
   body {
-    @apply bg-background text-foreground dark:bg-background dark:text-foreground;
+    /* Apply the base theme directly */
+    @apply bg-background text-foreground; 
     font-feature-settings: "rlig" 1, "calt" 1;
   }
   
@@ -137,15 +110,15 @@
   }
 }
 
-/* Resume preview styles with color */
+/* Resume preview styles adjusted for dark theme */
 .resume-preview {
   font-family: Arial, sans-serif;
   line-height: 1.5;
-  background-color: white;
-  color: #000;
+  background-color: hsl(var(--card)); /* Use card background */
+  color: hsl(var(--card-foreground)); /* Use card foreground */
   padding: 20px;
-  border-radius: 8px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  border-radius: 8px; /* Use --radius? var(--radius)? */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Keep shadow or adjust */
   overflow: hidden;
 }
 
@@ -153,7 +126,7 @@
   font-size: 1.8rem;
   font-weight: bold;
   margin-bottom: 0.5rem;
-  color: #000;
+  color: hsl(var(--primary)); /* Use primary color for main heading */
 }
 
 .resume-preview h2 {
@@ -162,31 +135,36 @@
   margin-top: 1.5rem;
   margin-bottom: 0.5rem;
   padding-bottom: 0.25rem;
-  border-bottom: 1px solid #000;
-  color: #000;
+  border-bottom: 1px solid hsl(var(--primary)); /* Use primary color for border */
+  color: hsl(var(--foreground)); /* Use foreground color */
 }
 
 .resume-preview h3 {
   font-size: 1.1rem;
   font-weight: bold;
   margin-bottom: 0.25rem;
-  color: #000;
+  color: hsl(var(--foreground)); /* Use foreground color */
 }
 
 .resume-preview p {
   margin-bottom: 0.5rem;
-  color: #000;
+  color: hsl(var(--muted-foreground)); /* Use muted foreground for paragraphs */
 }
 
 .resume-preview ul {
   margin: 0.5rem 0;
   padding-left: 1.5rem;
   list-style-type: disc;
-  color: #000;
+  color: hsl(var(--muted-foreground)); /* Use muted foreground for lists */
+}
+
+.resume-preview li::marker {
+   color: hsl(var(--primary)); /* Green bullet points */
 }
 
 .resume-preview li {
-  color: #000;
+  color: hsl(var(--muted-foreground)); /* Use muted foreground */
+  margin-bottom: 0.25rem; /* Add some space between list items */
 }
 
 .resume-preview .contact-info {
@@ -195,14 +173,14 @@
   gap: 1rem;
   margin-bottom: 1rem;
   font-size: 0.9rem;
-  color: #000;
+  color: hsl(var(--muted-foreground)); /* Muted foreground */
 }
 
 .resume-preview .experience-item,
 .resume-preview .education-item,
 .resume-preview .certification-item {
   margin-bottom: 1rem;
-  color: #000;
+  color: hsl(var(--foreground)); /* Foreground color */
 }
 
 .resume-preview .skills-list,
@@ -210,29 +188,35 @@
   display: flex;
   flex-wrap: wrap;
   gap: 0.5rem;
-  color: #000;
+  color: hsl(var(--foreground)); /* Foreground color */
 }
 
 .resume-preview .skill-item,
 .resume-preview .language-item {
-  padding: 0.25rem 0.5rem;
-  border-radius: 4px;
+  padding: 0.25rem 0.75rem; /* Slightly more padding */
+  border-radius: calc(var(--radius) - 4px); /* Use sm radius */
   font-size: 0.9rem;
-  background-color: #f0f0f0;
-  color: #000;
+  background-color: hsl(var(--secondary)); /* Use secondary background */
+  color: hsl(var(--secondary-foreground)); /* Use secondary foreground */
+  border: 1px solid hsl(var(--border)); /* Add subtle border */
 }
 
 .resume-preview .date-range {
   font-style: italic;
   font-size: 0.9rem;
-  color: #333;
+  color: hsl(var(--muted-foreground)); /* Muted foreground */
 }
 
 .resume-preview .company-location,
 .resume-preview .institution-location {
   font-size: 0.9rem;
-  color: #333;
+  color: hsl(var(--muted-foreground)); /* Muted foreground */
 }
+
+/* Remove template specific styles if they conflict or adjust them */
+/* .resume-classic h1 { ... } */
+/* .resume-classic h2 { ... } */
+/* .resume-classic p, ... { ... } */
 
 /* Template specific styles */
 .resume-classic h1 {

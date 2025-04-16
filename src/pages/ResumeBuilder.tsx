@@ -349,7 +349,7 @@ const ResumeBuilder = () => {
     <div className="min-h-screen bg-background text-foreground py-8 px-4">
       <div className="container mx-auto">
         <div className="flex justify-between items-center mb-8">
-          <h1 className="text-3xl font-bold text-foreground">resume</h1>
+          <h1 className="text-3xl font-bold text-foreground">resuuume.</h1>
           <div className="flex gap-2">
             <Link to="/">
               <Button variant="outline" className="flex items-center gap-2 text-foreground border-border hover:bg-accent/50 hover:text-foreground rounded-sm">
@@ -359,7 +359,7 @@ const ResumeBuilder = () => {
             <Button 
               onClick={() => setViewMode('preview')} 
               disabled={Object.values(resume.personalInfo).every(val => !val)} 
-              className="bg-[#fab73d] text-black hover:bg-[#fab73d]/90 rounded-sm"
+              className="bg-primary text-primary-foreground hover:bg-primary/90 rounded-sm"
             >
               <Eye className="mr-2 h-4 w-4" />
               Visualizar
@@ -374,11 +374,11 @@ const ResumeBuilder = () => {
         <Tabs value={viewMode} onValueChange={(value) => setViewMode(value as 'edit' | 'preview')} className="w-full">
           <div className="flex justify-center mb-6">
             <TabsList className="bg-accent border border-border rounded-sm">
-              <TabsTrigger value="edit" className="flex items-center gap-2 rounded-sm text-muted-foreground data-[state=active]:bg-[#fab73d] data-[state=active]:text-black">
+              <TabsTrigger value="edit" className="flex items-center gap-2 rounded-sm text-muted-foreground data-[state=active]:bg-primary data-[state=active]:text-primary-foreground">
                 <ArrowRight className="h-4 w-4" />
                 Editar
               </TabsTrigger>
-              <TabsTrigger value="preview" className="flex items-center gap-2 rounded-sm text-muted-foreground data-[state=active]:bg-[#fab73d] data-[state=active]:text-black">
+              <TabsTrigger value="preview" className="flex items-center gap-2 rounded-sm text-muted-foreground data-[state=active]:bg-primary data-[state=active]:text-primary-foreground">
                 <Eye className="h-4 w-4" />
                 Visualizar
               </TabsTrigger>
@@ -396,7 +396,7 @@ const ResumeBuilder = () => {
                         variant={currentStep === index ? "default" : "ghost"}
                         className={`justify-start text-left rounded-sm ${ 
                           currentStep === index 
-                            ? "bg-[#fab73d] text-black hover:bg-[#fab73d]/90"
+                            ? "bg-primary text-primary-foreground hover:bg-primary/90"
                             : "text-foreground hover:bg-accent/50"
                         } ${!section.required && !sectionsInNav[section.id] && section.id !== 'personal-info' && section.id !== 'skills' ? "opacity-50" : ""}`}
                         onClick={() => {
@@ -431,7 +431,7 @@ const ResumeBuilder = () => {
                     </Button>
                     <Button
                       onClick={currentStep === steps.length - 1 ? handleDownload : handleNext}
-                      className="flex items-center gap-2 bg-[#fab73d] text-black hover:bg-[#fab73d]/90 rounded-sm"
+                      className="flex items-center gap-2 bg-primary text-primary-foreground hover:bg-primary/90 rounded-sm"
                     >
                       {currentStep === steps.length - 1 ? (
                         <>Finalizar e Baixar <Download className="h-4 w-4" /></>
@@ -478,7 +478,7 @@ const ResumeBuilder = () => {
               <AlertDialogDescription className="text-muted-foreground">{currentInfo.description}</AlertDialogDescription>
             </AlertDialogHeader>
             <AlertDialogFooter>
-              <AlertDialogAction className="bg-[#fab73d] text-black hover:bg-[#fab73d]/90">Entendi</AlertDialogAction>
+              <AlertDialogAction className="bg-primary text-primary-foreground hover:bg-primary/90">Entendi</AlertDialogAction>
             </AlertDialogFooter>
           </AlertDialogContent>
         </AlertDialog>
@@ -508,7 +508,7 @@ const ResumeBuilder = () => {
               <Button onClick={() => setSaveDialogOpen(false)} variant="outline" className="text-foreground border-border hover:bg-accent/50 rounded-sm">
                 Cancelar
               </Button>
-              <Button onClick={handleSaveResume} className="bg-[#fab73d] text-black hover:bg-[#fab73d]/90 rounded-sm">
+              <Button onClick={handleSaveResume} className="bg-primary text-primary-foreground hover:bg-primary/90 rounded-sm">
                 Salvar
               </Button>
             </DialogFooter>
